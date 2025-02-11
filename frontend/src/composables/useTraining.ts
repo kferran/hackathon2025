@@ -212,21 +212,19 @@ export function useTraining() {
 
     const producerTraining = ref<IProducerTraining>()
 
-    const getProductTraining = async (): Promise<IProducerTraining> => {
+    const getProductTraining = async (npn: string): Promise<IProducerTraining> => {
         try {
-            // const response = await axios({
-            //     withCredentials: false,
-            //     headers: {
-            //         "Access-Control-Allow-Origin": "*"
-            //     },
-            //     url: 'https://dc1pp0md2g.execute-api.us-west-2.amazonaws.com/v1/test?npn=1234567890'
-            // });
+            const response = await axios({
+                method: 'get',
+                withCredentials: false,
+                url: `https://dc1pp0md2g.execute-api.us-west-2.amazonaws.com/v1/test?npn=${npn}`
+            });
             
-            // return producerTraining.value = response.data
+            return producerTraining.value = response.data
             
-            await new Promise(resolve => setTimeout(resolve, 500));
-            const response = new ProducerTraining(mockSuccessTrainingData);
-            return producerTraining.value = response
+            // await new Promise(resolve => setTimeout(resolve, 500));
+            // const response = new ProducerTraining(mockSuccessTrainingData);
+            // return producerTraining.value = response
         } catch (error) {
             console.error('Error fetching product training:', error);
             throw error;

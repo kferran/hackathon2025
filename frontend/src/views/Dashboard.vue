@@ -5,7 +5,7 @@ import { useTraining } from '@/composables/useTraining';
 
 const {getProductTraining, producerTraining} = useTraining()
 
-await getProductTraining()
+await getProductTraining('1234567890')
 
 console.log(producerTraining.value)
 </script>
