@@ -104,9 +104,9 @@ const mockSuccessTrainingData = {
                 }
             ]
         },
-        {
+		{
             "CUSIP": "037833100",
-            "name": "Super Fixed Annuity",
+            "name": "Supreme Fixed Annuity",
             "type": "Annuity",
             "jurisdiction": ["CT", "MA"],
             "carrierAuthorization": true,
@@ -126,7 +126,7 @@ const mockSuccessTrainingData = {
                         "expirationDate": "2026-02-09",
                         "credentialHours": 25,
                         "continuingEducationHours": 10,
-                        "certificationDate": "2025-02-10",
+                        "certificationDate": null,
                         "certificationState": "CT",
                         "certificationNumber": "34652643"
                     }
@@ -202,9 +202,9 @@ const mockSuccessTrainingData = {
                 }
             ]
         },
-        {
+		{
             "CUSIP": "037833100",
-            "name": "Another Fixed Annuity",
+            "name": "Ultra Fixed Annuity",
             "type": "Annuity",
             "jurisdiction": ["CT", "MA"],
             "carrierAuthorization": true,
@@ -224,7 +224,7 @@ const mockSuccessTrainingData = {
                         "expirationDate": "2026-02-09",
                         "credentialHours": 25,
                         "continuingEducationHours": 10,
-                        "certificationDate": "2025-02-10",
+                        "certificationDate": null,
                         "certificationState": "CT",
                         "certificationNumber": "34652643"
                     }
@@ -243,7 +243,7 @@ const mockSuccessTrainingData = {
                         "expirationDate": "2026-01-14",
                         "credentialHours": 20,
                         "continuingEducationHours": 8,
-                        "certificationDate": "2025-01-15",
+                        "certificationDate": null,
                         "certificationState": "MA",
                         "certificationNumber": "34652644"
                     }

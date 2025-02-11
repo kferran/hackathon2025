@@ -2,7 +2,7 @@
 import { type IProducerTraining } from '@/core/model';
 
 const props = defineProps<{
-    producerTraining: IProducerTraining
+    producerTraining: IProducerTraining | undefined
 
 }>()
 </script>

@@ -5,6 +5,7 @@ import ProductTable from '@/components/ProductTable.vue';
 import { useTraining } from '@/composables/useTraining';
 import { getProductTrainingCompletionPercentage } from '@/core/model';
 import UpcomingTraining from '@/components/UpcomingTraining.vue';
+import RequiredTraining from '@/components/RequiredTraining.vue';
 
 const { getProductTraining, producerTraining } = useTraining()
 
@@ -15,25 +16,13 @@ const anyProductsRequireTraining = producerTraining.value?.products?.some(p => g
 <template>
 <NavLayout>
     <div>
-		<div
+		<RequiredTraining 
 			v-if="anyProductsRequireTraining"
-			class="w-full py-24 bg-[#111928] flex-col justify-start items-center inline-flex"
-		>
-			<div class="text-center text-white text-4xl font-extrabold leading-[45px]">Training Action Required</div>
-
-			<div class="text-center text-gray-400 text-xl font-normal leading-[30px] mb-5">
-				The most pressing training modules that are applicable to your business and clients.
-			</div>
-
-			<div class="grid grid-cols-2 gap-4">
-				<TrainingActionCard
-					v-for="product in producerTraining?.products ?? []"
-					:product="product"
-				/>
-			</div>
-        </div>
-
+			:producerTraining="producerTraining"
+		/>
+		
 		<UpcomingTraining />
+
         <ProductTable :producerTraining="producerTraining" />
     </div>
 </NavLayout>
