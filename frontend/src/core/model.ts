@@ -124,4 +124,8 @@ export class Product implements IProduct {
     appoinments: IAppointment[]
     stateLicenses: IStateLicense[]
     registrations: IRegistration[]
+
+    constructor(data: IProduct) {
+        Object.assign(this, data);
+    }
 }
