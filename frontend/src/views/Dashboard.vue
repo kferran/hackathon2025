@@ -6,8 +6,6 @@ import { useTraining } from '@/composables/useTraining';
 const {getProductTraining, producerTraining} = useTraining()
 
 await getProductTraining()
-
-console.log(producerTraining.value)
 </script>
 <template>
 <NavLayout>
