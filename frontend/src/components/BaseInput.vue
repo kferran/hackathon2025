@@ -2,9 +2,9 @@
 const model = defineModel()
 
 const props = defineProps<{
-	label: string | undefined,
-	placeholder: string | undefined,
-	type: string | undefined
+	label?: string | undefined,
+	placeholder?: string | undefined,
+	type?: string | undefined
 }>()
 
 

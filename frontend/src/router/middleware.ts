@@ -1,15 +1,25 @@
 import { useUserStore } from "@/stores/user.store";
-import type { RouteLocationNormalizedGeneric } from "vue-router";
+import type { NavigationGuardNext, RouteLocationNormalizedGeneric } from "vue-router";
+
 
 export async function checkAll() {
 	
 }
 
-export async function checkAuthorization(to : RouteLocationNormalizedGeneric, from: RouteLocationNormalizedGeneric) {
+export async function checkAuthorization(to : RouteLocationNormalizedGeneric, from: RouteLocationNormalizedGeneric, next : NavigationGuardNext) {
 	const user = useUserStore()
 
 	if (!user.isAuthorized)
-		return null
+		next({ name: 'login' })
 
-	return null
+	next()
+}
+
+export async function checkLoggedIn(to : RouteLocationNormalizedGeneric, from: RouteLocationNormalizedGeneric, next : NavigationGuardNext) {
+	const user = useUserStore()
+
+	if (user.isAuthorized)
+		next({ name: 'dashboard' })
+
+	next()
 }

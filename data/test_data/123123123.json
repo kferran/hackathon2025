@@ -1,0 +1,107 @@
+{
+	"producerNPN": "123123123",
+	"carrier": "Carrier A",
+	"products": [
+		{
+			"CUSIP": "209834HHHH",
+			"name": "Product Name One",
+			"type": "Fixed Annuity",
+			"jurisdictions": [
+				"TX",
+				"OK"
+			],
+			"carrierAuthorization": true,
+			"distributorAuthorization": true,
+			"courses": [
+				{
+					"provider": "RGED",
+					"providerId": "123415",
+					"completionStage": "Completed",
+					"courseId": "132566",
+					"courseName": "Carrier A Version 5 Producer Training",
+					"courseMethod": "Online",
+					"courseType": "Product",
+					"productTrainingType": "Fixed Deferred Annuity",
+					"completionInformation": {
+						"completionDate": "2025-02-01",
+						"expirationDate": "2026-02-01",
+						"credentialHours": 20,
+						"continuingEducationHours": 8,
+						"certificationDate": "2025-02-01",
+						"certificationState": "TX",
+						"certificationNumber": "987654321"
+					}
+				},
+				{
+					"provider": "EDJ",
+					"providerId": "243524",
+					"completionStage": "Completed",
+					"courseId": "132567",
+					"courseName": "Best Interest Training",
+					"courseMethod": "Online",
+					"courseType": "Distributor",
+					"productTrainingType": "Fixed Deferred Annuity",
+					"completionInformation": {
+						"completionDate": "2025-02-01",
+						"expirationDate": "2026-02-01",
+						"credentialHours": 15,
+						"continuingEducationHours": 6,
+						"certificationDate": "2025-02-01",
+						"certificationState": "OK",
+						"certificationNumber": "123789456"
+					}
+				}
+			],
+			"appointments": [
+				{
+					"status": "Accepted",
+					"lineOfAuthority": "Annuity",
+					"appointmentDate": "2025-02-01",
+					"appointmentState": "TX"
+				},
+				{
+					"status": "Accepted",
+					"lineOfAuthority": "Annuity",
+					"appointmentDate": "2025-02-01",
+					"appointmentState": "OK"
+				}
+			],
+			"stateLicenses": [
+				{
+					"jurisdiction": "TX",
+					"number": "TX-123123",
+					"status": "Active",
+					"licenseDate": "2024-01-15",
+					"expirationDate": "2026-02-15",
+					"resident": true,
+					"lineOfAuthority": "Annuity"
+				},
+				{
+					"jurisdiction": "OK",
+					"number": "OK-456456",
+					"status": "Active",
+					"licenseDate": "2024-01-15",
+					"expirationDate": "2026-02-15",
+					"resident": false,
+					"lineOfAuthority": "Annuity"
+				}
+			],
+			"registrations": [
+				{
+					"status": "In Good Standing",
+					"crdNumber": "321321321",
+					"type": "Series 6",
+					"firmName": "Advisor B",
+					"firmCRDNumber": "654654654"
+				},
+				{
+					"status": "In Good Standing",
+					"crdNumber": "321321321",
+					"type": "Series 7",
+					"firmName": "Advisor B",
+					"firmCRDNumber": "654654654"
+				}
+			]
+		}
+	]
+}
