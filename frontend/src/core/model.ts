@@ -49,7 +49,11 @@ export enum RegistrationType {
     // Add other possible registration types as needed
 }
 
+<<<<<<< HEAD
+export interface IAppointment {
+=======
 interface IAppointment {
+>>>>>>> 613fa12fb7a552f8ed1b986828e2ec26022a63df
     status: Status;
     lineOfAuthority: LineOfAuthority;
     appointmentDate: string;
@@ -57,7 +61,11 @@ interface IAppointment {
 }
 
 // State License interface
+<<<<<<< HEAD
+export interface IStateLicense {
+=======
 interface IStateLicense {
+>>>>>>> 613fa12fb7a552f8ed1b986828e2ec26022a63df
     jurisdiction: State;
     number: string;
     status: Status;
@@ -68,7 +76,11 @@ interface IStateLicense {
 }
 
 // Registration interface
+<<<<<<< HEAD
+export interface IRegistration {
+=======
 interface IRegistration {
+>>>>>>> 613fa12fb7a552f8ed1b986828e2ec26022a63df
     status: Status;
     crdNumber: string;
     type: RegistrationType;
@@ -77,7 +89,11 @@ interface IRegistration {
 }
 
 // Interface for completion information
+<<<<<<< HEAD
+export interface ICompletionInformation {
+=======
 interface ICompletionInformation {
+>>>>>>> 613fa12fb7a552f8ed1b986828e2ec26022a63df
     completionDate: string;
     expirationDate: string;
     credentialHours: number;
@@ -88,7 +104,11 @@ interface ICompletionInformation {
 }
 
 // Interface for individual course
+<<<<<<< HEAD
+export interface ICourse {
+=======
 interface ICourse {
+>>>>>>> 613fa12fb7a552f8ed1b986828e2ec26022a63df
     provider: Provider;
     providerId: string;
     completionStage: CompletionStage;
