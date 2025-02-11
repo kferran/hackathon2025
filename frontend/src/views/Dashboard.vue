@@ -7,9 +7,9 @@ import { getProductTrainingCompletionPercentage } from '@/core/model';
 
 const { getProductTraining, producerTraining } = useTraining()
 
-await getProductTraining('1234567890')
-
-const anyProductsRequireTraining = producerTraining.value?.products.some(p => getProductTrainingCompletionPercentage(p) != 1)
+await getProductTraining('123123123')
+console.log(producerTraining.value)
+const anyProductsRequireTraining = producerTraining.value?.products?.some(p => getProductTrainingCompletionPercentage(p) != 1)
 </script>
 <template>
 <NavLayout>
@@ -30,7 +30,7 @@ const anyProductsRequireTraining = producerTraining.value?.products.some(p => ge
                 
             </div>
         </div>
-        <ProductTable :products="producerTraining.products" />
+        <ProductTable :producerTraining="producerTraining" />
     </div>
 </NavLayout>
 
