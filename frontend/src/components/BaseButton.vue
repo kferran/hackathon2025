@@ -1,9 +1,13 @@
 <script setup lang="ts">
+import { computed } from 'vue';
+
 const props = defineProps<{
 	color: 'default' | 'alternative' | 'dark' | 'light' | 'green' | 'red' | 'yellow' | 'purple'
 }>()
 
-const buttonClasses
+const buttonClasses = computed(() => {
+	
+})
 
 </script>
 
