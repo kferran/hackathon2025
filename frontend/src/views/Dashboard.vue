@@ -14,7 +14,7 @@ const { getProductTraining, producerTraining } = useTraining()
 
 await getProductTraining('123123123')
 console.log(producerTraining.value)
-const anyProductsRequireTraining = producerTraining.value?.products?.some(p => getProductTrainingCompletionPercentage(p) != 1)
+const anyProductsRequireTraining = producerTraining.value?.ProductDetails?.some(p => getProductTrainingCompletionPercentage(p) != 1)
 </script>
 <template>
 <NavLayout>
@@ -70,7 +70,7 @@ const anyProductsRequireTraining = producerTraining.value?.products?.some(p => g
 
 			<div class="grid grid-cols-2 gap-4">
 				<TrainingActionCard
-					v-for="product in producerTraining?.products"
+					v-for="product in producerTraining?.ProductDetails ?? []"
 					:product="product"
 				/>
 			</div>
