@@ -6,7 +6,7 @@ import BaseButton from '@/components/BaseButton.vue';
 </script>
 
 <template>
-<div class="w-full py-24 bg-[#111928] flex-col justify-start inline-flex">
+<div class="w-full p-20 bg-[#111928] flex-col justify-start inline-flex">
 	<div class="inline-flex w-full gap-4 my-5 p-5">
 		<div class="w-1/2">
 			<div class=" text-white text-4xl font-extrabold leading-[45px]">Upcoming Required Trainings</div>

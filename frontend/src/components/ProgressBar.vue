@@ -1,7 +1,8 @@
 <script setup lang="ts">
 const props = defineProps<{
 	label?: string,
-	percentage: number
+	percentage: number,
+	minutesRemaining?: number
 }>()
 </script>
 
@@ -14,7 +15,10 @@ const props = defineProps<{
 			<span class="text-gray-400 text-sm font-normal leading-[21px]">Complete</span>
 		</span>
 		
-		<div class="text-gray-400 text-sm font-normal leading-[21px]">Est. 5 minutes</div>
+		<div
+			v-if="minutesRemaining != null && minutesRemaining != undefined"
+			class="text-gray-400 text-sm font-normal leading-[21px]"
+		>Est. {{ minutesRemaining }} minutes</div>
 	</div>
 	<div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
 		<div class="bg-blue-600 h-2.5 rounded-full" :style="`width: ${percentage}%`"></div>

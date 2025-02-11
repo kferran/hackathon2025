@@ -12,13 +12,13 @@ const { getProductTraining, producerTraining } = useTraining()
 
 await getProductTraining('123123123')
 console.log(producerTraining.value)
-const anyProductsRequireTraining = producerTraining.value?.ProductDetails?.some(p => getProductTrainingCompletionPercentage(p) != 1)
+const anyProductsRequireTraining = producerTraining.value?.products?.some(p => getProductTrainingCompletionPercentage(p) != 1)
 </script>
 <template>
 <NavLayout>
     <div>
 		<RequiredTraining 
-			v-if="anyProductsRequireTraining"
+			v-if="anyProductsRequireTraining || true"
 			:producerTraining="producerTraining"
 		/>
 		
