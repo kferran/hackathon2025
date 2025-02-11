@@ -101,15 +101,15 @@ export interface ICourse {
 }
 
 export interface IProducerTraining {
-    producerNPN: string
-	carrier: string
-    products: IProduct[]
+    ProducerNPN: string
+	Carrier: string
+    ProductDetails: IProduct[]
 }
 
 export class ProducerTraining implements IProducerTraining {
-    producerNPN: string;
-    carrier: string;
-    products: IProduct[];
+    ProducerNPN: string;
+    Carrier: string;
+    ProductDetails: IProduct[];
 
     constructor(data: IProducerTraining) {
         Object.assign(this, data);

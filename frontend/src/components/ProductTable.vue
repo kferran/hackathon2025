@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { type IProduct } from '@/core/model';
+import { type IProducerTraining } from '@/core/model';
 
 const props = defineProps<{
-    products: IProduct[]
+    producerTraining: IProducerTraining
 
 }>()
 </script>
@@ -28,11 +28,11 @@ const props = defineProps<{
                                 </div>
                                 <input type="text" id="simple-search"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    placeholder="Search" required="">
+                                    placeholder="Search for trainings">
                             </div>
                         </form>
                     </div>
-                    <div
+                    <!-- <div
                         class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
                         <button type="button"
                             class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
@@ -128,7 +128,7 @@ const props = defineProps<{
                                 </ul>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -146,17 +146,18 @@ const props = defineProps<{
                         </thead>
                         <tbody>
                             <tr 
-                                class="border-b dark:border-gray-700" 
-                                v-for="(product, index) in props.products"
+                                class="border-b border-gray-200 dark:border-gray-700" 
+                                v-for="(product, index) in props.producerTraining.products"
                                 :key="index"
                             >
-                                <!-- <th scope="row"
-                                    class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">Apple
-                                    iMac 27&#34;</th>
-                                <td class="px-4 py-3">PC</td>
-                                <td class="px-4 py-3">Apple</td>
-                                <td class="px-4 py-3">300</td>
-                                <td class="px-4 py-3">$2999</td>
+                                <th scope="row"
+                                    class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{product.name}}</th>
+                                <td class="px-4 py-3">{{ producerTraining.carrier }}</td>
+                                <td class="px-4 py-3">{{ product.type }}</td>
+                                <td class="px-4 py-3">
+                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.</td>
+                                <td class="px-4 py-3"><span class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-purple-900 dark:text-purple-300">in progress</span>
+                                </td>
                                 <td class="px-4 py-3 flex items-center justify-end">
                                     <button id="apple-imac-27-dropdown-button"
                                         data-dropdown-toggle="apple-imac-27-dropdown"
@@ -186,12 +187,12 @@ const props = defineProps<{
                                                 class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
                                         </div>
                                     </div>
-                                </td> -->
+                                </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
+                <!-- <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
                     aria-label="Table navigation">
                     <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
                         Showing
@@ -245,7 +246,7 @@ const props = defineProps<{
                             </a>
                         </li>
                     </ul>
-                </nav>
+                </nav> -->
             </div>
         </div>
     </section>
