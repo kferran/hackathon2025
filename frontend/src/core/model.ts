@@ -131,16 +131,16 @@ export interface IProduct {
 }
 
 export class Product implements IProduct {
-    CUSIP: string
-    name: string
-    type: string
-    jurisdiction: string[]
-    carrierAuthorization: boolean
-    distributorAuthorization: boolean
-    courses: ICourse[]
-    appointments: IAppointment[]
-    stateLicenses: IStateLicense[]
-    registrations: IRegistration[]
+    CUSIP: string = ""
+    name: string = "" 
+    type: string = ""
+    jurisdiction: string[] = []
+    carrierAuthorization: boolean = false
+    distributorAuthorization: boolean = false
+    courses: ICourse[] = []
+    appointments: IAppointment[] = []
+    stateLicenses: IStateLicense[] = []
+    registrations: IRegistration[] = []
 
     constructor(data: IProduct) {
         Object.assign(this, data);

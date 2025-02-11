@@ -37,7 +37,7 @@ const completionPercentage = computed(() => getProductTrainingCompletionPercenta
 			</BaseButton>
 
 			<BaseButton color="alternative" class="inline-flex items-center">
-				<Icon name="share" class="mr-1"/>
+				<Icon name="calendar" class="mr-1"/>
 
 				Share this training
 			</BaseButton>
