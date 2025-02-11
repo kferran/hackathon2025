@@ -18,9 +18,10 @@ console.log(producerTraining.value)
 			<div class="text-center text-gray-400 text-xl font-normal leading-[30px] mb-5">The most pressing training modules that are applicable to your business and clients.</div>
 
 			<div class="grid grid-cols-2 gap-4">
-				<TrainingActionCard />
-				<TrainingActionCard />
-				<TrainingActionCard />
+				<TrainingActionCard
+					v-for="product in producerTraining?.products"
+					:product="product"
+				/>
 			</div>
 			
 		</div>
