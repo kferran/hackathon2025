@@ -101,15 +101,15 @@ export interface ICourse {
 }
 
 export interface IProducerTraining {
-    producerNPN: string
-	carrier: string
-    products: IProduct[]
+    ProducerNPN: string
+	Carrier: string
+    ProductDetails: IProduct[]
 }
 
 export class ProducerTraining implements IProducerTraining {
-    producerNPN: string;
-    carrier: string;
-    products: IProduct[];
+    ProducerNPN: string;
+    Carrier: string;
+    ProductDetails: IProduct[];
 
     constructor(data: IProducerTraining) {
         Object.assign(this, data);
@@ -145,4 +145,10 @@ export class Product implements IProduct {
     constructor(data: IProduct) {
         Object.assign(this, data);
     }
+}
+
+export function getProductTrainingCompletionPercentage(product : IProduct) {
+	const completedCourses = product.courses.filter(x => !!x.completionInformation.certificationDate)
+
+	return product.courses.length / completedCourses.length
 }

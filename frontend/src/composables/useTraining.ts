@@ -212,14 +212,12 @@ export function useTraining() {
 
     const producerTraining = ref<IProducerTraining>()
 
-    const getProductTraining = async (): Promise<IProducerTraining> => {
+    const getProductTraining = async (npn: string): Promise<IProducerTraining> => {
         try {
             // const response = await axios({
+            //     method: 'get',
             //     withCredentials: false,
-            //     headers: {
-            //         "Access-Control-Allow-Origin": "*"
-            //     },
-            //     url: 'https://dc1pp0md2g.execute-api.us-west-2.amazonaws.com/v1/test?npn=1234567890'
+            //     url: `https://dc1pp0md2g.execute-api.us-west-2.amazonaws.com/v1/test?npn=${npn}`
             // });
             
             // return producerTraining.value = response.data
