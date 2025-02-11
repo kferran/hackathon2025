@@ -17,7 +17,6 @@ function handleToggle() {
 	const previous = theme.value
 	theme.value = theme.value == 'dark' ? 'light' : 'dark'
 
-	console.log(previous, theme.value)
 
 	document.documentElement.classList.remove(previous)
 	document.documentElement.classList.add(theme.value)

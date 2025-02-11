@@ -4,7 +4,7 @@ import TopNav from '@/components/TopNav.vue';
 <template>
 <div>
 	<TopNav />
-
+	
 	<slot />
 </div>
 
