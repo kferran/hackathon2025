@@ -18,7 +18,7 @@ const anyProductsRequireTraining = producerTraining.value?.products?.some(p => g
 <NavLayout>
     <div>
 		<RequiredTraining 
-			v-if="anyProductsRequireTraining || true"
+			v-if="anyProductsRequireTraining"
 			:producerTraining="producerTraining"
 		/>
 		
