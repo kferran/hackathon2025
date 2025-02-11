@@ -4,7 +4,6 @@ import TrainingActionCard from '@/components/TrainingActionCard.vue'
 import ProductTable from '@/components/ProductTable.vue';
 import { useTraining } from '@/composables/useTraining';
 import { getProductTrainingCompletionPercentage } from '@/core/model';
-import { computed } from 'vue';
 import UpcomingTraining from '@/components/UpcomingTraining.vue';
 import RequiredTraining from '@/components/RequiredTraining.vue';
 
