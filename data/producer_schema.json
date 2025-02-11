@@ -17,7 +17,7 @@
             "minItems": 1,
             "items": {
                 "type": "object",
-                "required": ["CUSIP", "name", "type", "jurisdictions"],
+                "required": ["CUSIP", "name", "type", "jurisdictions", "description"],
                 "properties": {
                     "CUSIP": {
                         "type": "string",
@@ -27,6 +27,10 @@
                     "name": {
                         "type": "string",
                         "description": "Product name."
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "A detailed description of the product."
                     },
                     "type": {
                         "type": "string",
@@ -51,7 +55,7 @@
                         "type": "array",
                         "items": {
                             "type": "object",
-                            "required": ["provider", "providerId", "completionStage", "courseId", "courseName"],
+                            "required": ["provider", "providerId", "completionStage", "courseId", "courseName", "status"],
                             "properties": {
                                 "provider": {
                                     "type": "string",
@@ -73,6 +77,11 @@
                                 "courseName": {
                                     "type": "string",
                                     "description": "Course name."
+                                },
+                                "status": {
+                                    "type": "string",
+                                    "enum": ["complete", "in progress", "not started"],
+                                    "description": "The current status of the producer taking the course."
                                 },
                                 "completionInformation": {
                                     "type": "object",
