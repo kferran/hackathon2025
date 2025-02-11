@@ -12,11 +12,9 @@ import TrainingScoreCard from '@/components/TrainingScoreCard.vue';
 
 const { getProductTraining, producerTraining } = useTraining()
 
-await getProductTraining('1234567890')
-
-const anyProductsRequireTraining = computed(
-	() => producerTraining.value?.products.some(p => getProductTrainingCompletionPercentage(p) != 1)
-)
+await getProductTraining('123123123')
+console.log(producerTraining.value)
+const anyProductsRequireTraining = producerTraining.value?.products?.some(p => getProductTrainingCompletionPercentage(p) != 1)
 </script>
 <template>
 <NavLayout>
@@ -77,7 +75,7 @@ const anyProductsRequireTraining = computed(
 				/>
 			</div>
         </div>
-        <ProductTable :products="producerTraining?.products ?? []" />
+        <ProductTable :producerTraining="producerTraining" />
     </div>
 </NavLayout>
 
