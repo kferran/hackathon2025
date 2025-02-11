@@ -4,7 +4,7 @@ import Card from '@/components/Card.vue';
 import ProgressBar from '@/components/ProgressBar.vue';
 import Icon from '@/components/Icon.vue';
 import nwLogoUrl from '@/assets/nationwide-logo.png'
-import { getProductTrainingCompletionPercentage, type IProduct } from '@/core/model';
+import { getEstimatedTrainingTimeInMinutes, getProductTrainingCompletionPercentage, type IProduct } from '@/core/model';
 import { computed } from 'vue';
 
 const props = defineProps<{
@@ -12,6 +12,8 @@ const props = defineProps<{
 }>()
 
 const completionPercentage = computed(() => getProductTrainingCompletionPercentage(props.product) * 100)
+
+const minutes = computed(() => getEstimatedTrainingTimeInMinutes(props.product))
 
 </script>
 
@@ -23,6 +25,7 @@ const completionPercentage = computed(() => getProductTrainingCompletionPercenta
 			label="% Complete"
 			class="mt-1"
 			:percentage="completionPercentage"
+			:minutesRemaining="minutes"
 		/>
 
 		<div class="text-white text-lg font-bold leading-snug mt-1">{{ product.name }}</div>
@@ -37,7 +40,7 @@ const completionPercentage = computed(() => getProductTrainingCompletionPercenta
 			</BaseButton>
 
 			<BaseButton color="alternative" class="inline-flex items-center">
-				<Icon name="calendar" class="mr-1"/>
+				<Icon name="share" class="mr-1"/>
 
 				Share this training
 			</BaseButton>

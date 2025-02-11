@@ -103,6 +103,202 @@ const mockSuccessTrainingData = {
                     "firmCRDNumber": "1234567890"
                 }
             ]
+        },
+		{
+            "CUSIP": "037833100",
+            "name": "Supreme Fixed Annuity",
+            "type": "Annuity",
+            "jurisdiction": ["CT", "MA"],
+            "carrierAuthorization": true,
+            "distributorAuthorization": true,
+            "courses": [
+                {
+                    "provider": "RGED",
+                    "providerId": "123415",
+                    "completionStage": "New",
+                    "courseId": "132566",
+                    "courseName": "Carrier A Version 5 Producer Training",
+                    "courseMethod": "Online",
+                    "courseType": "Product",
+                    "productTrainingType": "Fixed Deferred Annuity",
+                    "completionInformation": {
+                        "completionDate": "2025-02-10",
+                        "expirationDate": "2026-02-09",
+                        "credentialHours": 25,
+                        "continuingEducationHours": 10,
+                        "certificationDate": null,
+                        "certificationState": "CT",
+                        "certificationNumber": "34652643"
+                    }
+                },
+                {
+                    "provider": "SIMON",
+                    "providerId": "123777",
+                    "completionStage": "New",
+                    "courseId": "132567",
+                    "courseName": "Advanced Annuity Training",
+                    "courseMethod": "Online",
+                    "courseType": "Product",
+                    "productTrainingType": "Fixed Deferred Annuity",
+                    "completionInformation": {
+                        "completionDate": "2025-01-15",
+                        "expirationDate": "2026-01-14",
+                        "credentialHours": 20,
+                        "continuingEducationHours": 8,
+                        "certificationDate": "2025-01-15",
+                        "certificationState": "MA",
+                        "certificationNumber": "34652644"
+                    }
+                }
+            ],
+            "appointments": [
+                {
+                    "status": "Accepted",
+                    "lineOfAuthority": "Annuity",
+                    "appointmentDate": "2025-02-09",
+                    "appointmentState": "CT"
+                },
+                {
+                    "status": "Accepted",
+                    "lineOfAuthority": "Annuity",
+                    "appointmentDate": "2025-02-09",
+                    "appointmentState": "MA"
+                }
+            ],
+            "stateLicenses": [
+                {
+                    "jurisdiction": "CT",
+                    "number": "1234567890",
+                    "status": "Active",
+                    "licenseDate": "2024-01-09",
+                    "expirationDate": "2026-02-09",
+                    "resident": true,
+                    "lineOfAuthority": "Annuity"
+                },
+                {
+                    "jurisdiction": "MA",
+                    "number": "0987654321",
+                    "status": "Active",
+                    "licenseDate": "2024-01-09",
+                    "expirationDate": "2026-02-09",
+                    "resident": false,
+                    "lineOfAuthority": "Annuity"
+                }
+            ],
+            "registrations": [
+                {
+                    "status": "In Good Standing",
+                    "crdNumber": "1234567890",
+                    "type": "Series 6",
+                    "firmName": "Advisor A",
+                    "firmCRDNumber": "1234567890"
+                },
+                {
+                    "status": "In Good Standing",
+                    "crdNumber": "1234567890",
+                    "type": "Series 7",
+                    "firmName": "Advisor A",
+                    "firmCRDNumber": "1234567890"
+                }
+            ]
+        },
+		{
+            "CUSIP": "037833100",
+            "name": "Ultra Fixed Annuity",
+            "type": "Annuity",
+            "jurisdiction": ["CT", "MA"],
+            "carrierAuthorization": true,
+            "distributorAuthorization": true,
+            "courses": [
+                {
+                    "provider": "RGED",
+                    "providerId": "123415",
+                    "completionStage": "New",
+                    "courseId": "132566",
+                    "courseName": "Carrier A Version 5 Producer Training",
+                    "courseMethod": "Online",
+                    "courseType": "Product",
+                    "productTrainingType": "Fixed Deferred Annuity",
+                    "completionInformation": {
+                        "completionDate": "2025-02-10",
+                        "expirationDate": "2026-02-09",
+                        "credentialHours": 25,
+                        "continuingEducationHours": 10,
+                        "certificationDate": null,
+                        "certificationState": "CT",
+                        "certificationNumber": "34652643"
+                    }
+                },
+                {
+                    "provider": "SIMON",
+                    "providerId": "123777",
+                    "completionStage": "New",
+                    "courseId": "132567",
+                    "courseName": "Advanced Annuity Training",
+                    "courseMethod": "Online",
+                    "courseType": "Product",
+                    "productTrainingType": "Fixed Deferred Annuity",
+                    "completionInformation": {
+                        "completionDate": "2025-01-15",
+                        "expirationDate": "2026-01-14",
+                        "credentialHours": 20,
+                        "continuingEducationHours": 8,
+                        "certificationDate": null,
+                        "certificationState": "MA",
+                        "certificationNumber": "34652644"
+                    }
+                }
+            ],
+            "appointments": [
+                {
+                    "status": "Accepted",
+                    "lineOfAuthority": "Annuity",
+                    "appointmentDate": "2025-02-09",
+                    "appointmentState": "CT"
+                },
+                {
+                    "status": "Accepted",
+                    "lineOfAuthority": "Annuity",
+                    "appointmentDate": "2025-02-09",
+                    "appointmentState": "MA"
+                }
+            ],
+            "stateLicenses": [
+                {
+                    "jurisdiction": "CT",
+                    "number": "1234567890",
+                    "status": "Active",
+                    "licenseDate": "2024-01-09",
+                    "expirationDate": "2026-02-09",
+                    "resident": true,
+                    "lineOfAuthority": "Annuity"
+                },
+                {
+                    "jurisdiction": "MA",
+                    "number": "0987654321",
+                    "status": "Active",
+                    "licenseDate": "2024-01-09",
+                    "expirationDate": "2026-02-09",
+                    "resident": false,
+                    "lineOfAuthority": "Annuity"
+                }
+            ],
+            "registrations": [
+                {
+                    "status": "In Good Standing",
+                    "crdNumber": "1234567890",
+                    "type": "Series 6",
+                    "firmName": "Advisor A",
+                    "firmCRDNumber": "1234567890"
+                },
+                {
+                    "status": "In Good Standing",
+                    "crdNumber": "1234567890",
+                    "type": "Series 7",
+                    "firmName": "Advisor A",
+                    "firmCRDNumber": "1234567890"
+                }
+            ]
         }
     ]
 }

@@ -103,13 +103,13 @@ export interface ICourse {
 export interface IProducerTraining {
     ProducerNPN: string
 	Carrier: string
-    ProductDetails: IProduct[]
+    products: IProduct[]
 }
 
 export class ProducerTraining implements IProducerTraining {
     ProducerNPN: string;
     Carrier: string;
-    ProductDetails: IProduct[];
+    products: IProduct[];
 
     constructor(data: IProducerTraining) {
         Object.assign(this, data);
@@ -131,24 +131,36 @@ export interface IProduct {
 }
 
 export class Product implements IProduct {
-    CUSIP: string
-    name: string
-    type: string
-    jurisdiction: string[]
-    carrierAuthorization: boolean
-    distributorAuthorization: boolean
-    courses: ICourse[]
-    appointments: IAppointment[]
-    stateLicenses: IStateLicense[]
-    registrations: IRegistration[]
+    CUSIP: string = ""
+    name: string = "" 
+    type: string = ""
+    jurisdiction: string[] = []
+    carrierAuthorization: boolean = false
+    distributorAuthorization: boolean = false
+    courses: ICourse[] = []
+    appointments: IAppointment[] = []
+    stateLicenses: IStateLicense[] = []
+    registrations: IRegistration[] = []
 
     constructor(data: IProduct) {
         Object.assign(this, data);
     }
 }
 
-export function getProductTrainingCompletionPercentage(product : IProduct) {
-	const completedCourses = product.courses.filter(x => !!x.completionInformation.certificationDate)
+export function getProductIncompleteTrainings(product : IProduct) {
+	return product.courses.filter(x => !x.completionInformation.certificationDate)
+}
 
-	return product.courses.length / completedCourses.length
+export function getProductCompleteTrainings(product : IProduct) {
+	return product.courses.filter(x => !!x.completionInformation.certificationDate)
+}
+
+export function getProductTrainingCompletionPercentage(product : IProduct) {
+	const completedCourses = getProductCompleteTrainings(product)
+
+	return completedCourses.length / product.courses.length 
+}
+
+export function getEstimatedTrainingTimeInMinutes(product : IProduct) {
+	return getProductIncompleteTrainings(product).length * 5 // assume 5 minutes per training
 }

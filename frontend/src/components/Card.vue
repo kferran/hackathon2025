@@ -14,7 +14,7 @@ const props = defineProps<{
 	>
         <img 
 			:src="image"
-			class="rounded-t-lg" 
+			class="rounded-t-lg w-full aspect-1/1" 
 			alt=""
 		/>
     </a>
