@@ -4,16 +4,14 @@ import Card from '@/components/Card.vue';
 import ProgressBar from '@/components/ProgressBar.vue';
 import Icon from '@/components/Icon.vue';
 import nwLogoUrl from '@/assets/nationwide-logo.png'
-import type { IProduct } from '@/core/model';
+import { getProductTrainingCompletionPercentage, type IProduct } from '@/core/model';
 import { computed } from 'vue';
 
 const props = defineProps<{
 	product: IProduct
 }>()
 
-const completedCourses = computed(() => props.product.courses.filter(x => !!x.completionInformation.certificationDate))
-
-const completionPercentage = computed(() => Math.round(props.product.courses.length / completedCourses.value.length))
+const completionPercentage = computed(() => getProductTrainingCompletionPercentage(props.product) * 100)
 
 </script>
 
