@@ -3,12 +3,15 @@ import NavLayout from '@/layouts/NavLayout.vue';
 import TrainingActionCard from '@/components/TrainingActionCard.vue'
 import { useTraining } from '@/composables/useTraining';
 import { getProductTrainingCompletionPercentage } from '@/core/model';
+import { computed } from 'vue';
 
 const {getProductTraining, producerTraining} = useTraining()
 
 await getProductTraining('1234567890')
 
-const anyProductsRequireTraining = producerTraining.value?.products.some(p => getProductTrainingCompletionPercentage(p) != 1)
+const anyProductsRequireTraining = computed(
+	() => producerTraining.value?.products.some(p => getProductTrainingCompletionPercentage(p) != 1)
+)
 </script>
 <template>
 <NavLayout>
