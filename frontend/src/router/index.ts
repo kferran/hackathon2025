@@ -19,9 +19,9 @@ const router = createRouter({
 			path: '/dashbord',
 			name: 'dashboard',
 			component: Dashboard,
-			beforeEnter: async (to, from, next) => {
-				checkAuthorization(to, from, next)
-			}
+			// beforeEnter: async (to, from, next) => {
+			// 	checkAuthorization(to, from, next)
+			// }
 		},
 		{
 			path: '/product',
