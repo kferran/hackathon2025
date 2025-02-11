@@ -1,0 +1,14 @@
+{
+	"subscriptions": [
+		{
+			"producerNPN": "5556667778",
+			"code": "Subscribed",
+			"message": "Subscribed for NPN 5556667778"
+		},
+		{
+			"producerNPN": "475869129",
+			"code": "Unubscribed",
+			"message": "Unsubscribed for NPN 475869129"
+		}
+	]
+}

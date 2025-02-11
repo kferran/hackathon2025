@@ -1,0 +1,14 @@
+{
+	"distributor": "EDJ",
+	"distributorId": "26267367",
+	"subscriptions": [
+		{
+			"producerNPN": "5556667778",
+			"verb": "Subscribe"
+		},
+		{
+			"producerNPN": "475869129",
+			"verb": "Unsubscribe"
+		}
+	]
+}
