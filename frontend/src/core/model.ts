@@ -146,3 +146,9 @@ export class Product implements IProduct {
         Object.assign(this, data);
     }
 }
+
+export function getProductTrainingCompletionPercentage(product : IProduct) {
+	const completedCourses = product.courses.filter(x => !!x.completionInformation.certificationDate)
+
+	return product.courses.length / completedCourses.length
+}

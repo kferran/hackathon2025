@@ -4,6 +4,14 @@ import Card from '@/components/Card.vue';
 import ProgressBar from '@/components/ProgressBar.vue';
 import Icon from '@/components/Icon.vue';
 import nwLogoUrl from '@/assets/nationwide-logo.png'
+import { getProductTrainingCompletionPercentage, type IProduct } from '@/core/model';
+import { computed } from 'vue';
+
+const props = defineProps<{
+	product: IProduct
+}>()
+
+const completionPercentage = computed(() => getProductTrainingCompletionPercentage(props.product) * 100)
 
 </script>
 
@@ -14,10 +22,10 @@ import nwLogoUrl from '@/assets/nationwide-logo.png'
 		<ProgressBar
 			label="% Complete"
 			class="mt-1"
-			:percentage="50"
+			:percentage="completionPercentage"
 		/>
 
-		<div class="text-white text-lg font-bold leading-snug mt-1">{Product Name Here}</div>
+		<div class="text-white text-lg font-bold leading-snug mt-1">{{ product.name }}</div>
 
 		<div class="text-gray-400 text-base font-normal leading-normal mt-1">Build your expertise with our latest annuities training module. Learn key concepts, explore product features, and gain insights to better serve your clients. Start learning today!</div>
 
