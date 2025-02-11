@@ -1,0 +1,209 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "required": ["producerNPN", "carrier", "products"],
+    "properties": {
+        "producerNPN": {
+            "type": "string",
+            "pattern": "^[0-9]+$",
+            "description": "The National Producer Number (NPN), numeric string."
+        },
+        "carrier": {
+            "type": "string",
+            "description": "The name of the carrier."
+        },
+        "products": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "type": "object",
+                "required": ["CUSIP", "name", "type", "jurisdictions"],
+                "properties": {
+                    "CUSIP": {
+                        "type": "string",
+                        "pattern": "^[A-Za-z0-9]+$",
+                        "description": "Unique identifier for the product."
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Product name."
+                    },
+                    "type": {
+                        "type": "string",
+                        "enum": ["Fixed Annuity", "Variable Annuity", "Indexed Annuity"],
+                        "description": "Product type."
+                    },
+                    "jurisdictions": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "pattern": "^[A-Z]{2}$"
+                        },
+                        "description": "List of state abbreviations."
+                    },
+                    "carrierAuthorization": {
+                        "type": "boolean"
+                    },
+                    "distributorAuthorization": {
+                        "type": "boolean"
+                    },
+                    "courses": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "required": ["provider", "providerId", "completionStage", "courseId", "courseName"],
+                            "properties": {
+                                "provider": {
+                                    "type": "string",
+                                    "description": "Training provider name."
+                                },
+                                "providerId": {
+                                    "type": "string",
+                                    "description": "Unique provider ID."
+                                },
+                                "completionStage": {
+                                    "type": "string",
+                                    "enum": ["New", "Completed", "Expired"],
+                                    "description": "Training completion status."
+                                },
+                                "courseId": {
+                                    "type": "string",
+                                    "description": "Unique course identifier."
+                                },
+                                "courseName": {
+                                    "type": "string",
+                                    "description": "Course name."
+                                },
+                                "completionInformation": {
+                                    "type": "object",
+                                    "required": ["completionDate", "expirationDate", "credentialHours"],
+                                    "properties": {
+                                        "completionDate": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "description": "Completion date in YYYY-MM-DD format."
+                                        },
+                                        "expirationDate": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "description": "Expiration date in YYYY-MM-DD format."
+                                        },
+                                        "credentialHours": {
+                                            "type": "integer",
+                                            "minimum": 1,
+                                            "description": "Hours required to complete."
+                                        },
+                                        "continuingEducationHours": {
+                                            "type": "integer",
+                                            "minimum": 0,
+                                            "description": "Continuing education hours."
+                                        },
+                                        "certificationDate": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "description": "Date of certification."
+                                        },
+                                        "certificationState": {
+                                            "type": "string",
+                                            "pattern": "^[A-Z]{2}$",
+                                            "description": "State of certification."
+                                        },
+                                        "certificationNumber": {
+                                            "type": "string",
+                                            "description": "Unique certification number."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "appointments": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "required": ["status", "lineOfAuthority", "appointmentDate", "appointmentState"],
+                            "properties": {
+                                "status": {
+                                    "type": "string",
+                                    "enum": ["Accepted", "Pending", "Rejected"],
+                                    "description": "Appointment status."
+                                },
+                                "lineOfAuthority": {
+                                    "type": "string",
+                                    "description": "Type of authority (e.g., 'Annuity')."
+                                },
+                                "appointmentDate": {
+                                    "type": "string",
+                                    "format": "date"
+                                },
+                                "appointmentState": {
+                                    "type": "string",
+                                    "pattern": "^[A-Z]{2}$"
+                                }
+                            }
+                        }
+                    },
+                    "stateLicenses": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "required": ["jurisdiction", "number", "status", "licenseDate", "expirationDate"],
+                            "properties": {
+                                "jurisdiction": {
+                                    "type": "string",
+                                    "pattern": "^[A-Z]{2}$"
+                                },
+                                "number": {
+                                    "type": "string"
+                                },
+                                "status": {
+                                    "type": "string",
+                                    "enum": ["Active", "Expired", "Suspended"]
+                                },
+                                "licenseDate": {
+                                    "type": "string",
+                                    "format": "date"
+                                },
+                                "expirationDate": {
+                                    "type": "string",
+                                    "format": "date"
+                                },
+                                "resident": {
+                                    "type": "boolean"
+                                },
+                                "lineOfAuthority": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "registrations": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "required": ["status", "crdNumber", "type", "firmName"],
+                            "properties": {
+                                "status": {
+                                    "type": "string",
+                                    "enum": ["In Good Standing", "Suspended"]
+                                },
+                                "crdNumber": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                },
+                                "firmName": {
+                                    "type": "string"
+                                },
+                                "firmCRDNumber": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
