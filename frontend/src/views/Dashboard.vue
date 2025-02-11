@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import NavLayout from '@/layouts/NavLayout.vue';
 import TrainingActionCard from '@/components/TrainingActionCard.vue'
+import { useTraining } from '@/composables/useTraining';
+
+const {getProductTraining, producerTraining} = useTraining()
+
+await getProductTraining()
+
+console.log(producerTraining.value)
 </script>
 <template>
 <NavLayout>
