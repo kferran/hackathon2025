@@ -12,9 +12,7 @@ const user = useUserStore()
             <div
                 class="overflow-y-auto py-4 px-3 h-full bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700">
                 <div class="text-center text-gray-500 dark:text-gray-400">
-                    <img class="mx-auto mb-4 w-20 h-20 rounded-full"
-                        src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gouch.png"
-                        alt="Micheal Avatar">
+                    <img class="mx-auto mb-4 w-20 h-20 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gouch.png" alt="Micheal Avatar">
                     <h3 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
                         <a href="#">{{ user.name }}</a>
                     </h3>
@@ -116,7 +114,7 @@ const user = useUserStore()
                             </svg>
                         </button>
                         <ul id="dropdown-tasks" class="hidden py-2 space-y-2">
-                            <li>
+                            <li >
                                 <a href="#"
                                     class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">To
                                     do</a>
@@ -394,5 +392,4 @@ const user = useUserStore()
             </div>
         </section>
     </div>
-
 </template>
