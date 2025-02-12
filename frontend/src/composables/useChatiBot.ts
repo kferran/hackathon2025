@@ -9,7 +9,7 @@ export function useChatiBot() {
     const chatResponse = ref<ChatResponse>({response: ''})
     const chatResponseList = ref<ChatResponse[]>([])
 
-    const askCertiBot = async (prompt:string) => {
+    const askCertiBot = async (prompt:{ userPrompt: string }) => {
         try {
             const response = await axios({
                 method: 'post',
