@@ -325,12 +325,10 @@ export function useTraining() {
 			logoImage = atheneLogo
 		if (logoIndex == 1)
 			logoImage = edjLogo
-		if (logoIndex == 2)
-			logoImage = nationwideLogo
 
 		logoIndex++
 
-		if (logoIndex > 3)
+		if (logoIndex > 2)
 			logoIndex = 0
 
 		return logoImage
