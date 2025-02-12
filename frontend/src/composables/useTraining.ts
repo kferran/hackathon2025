@@ -6,6 +6,12 @@ import atheneLogo from '@/assets/athene-logo.png'
 
 const mockSuccessTrainingData = {
     "producerNPN": "12345678",
+    "producerCRD": "1234567890",
+    "producerAgentCode": "1234567890",
+    "producerFirstName": "John",
+    "producerLastName": "Doe",
+    "producerEmailAddress": "jdoe@gmail.com",
+    "distributor": "Edward Jones",
     "carrier": "Sample Insurance Company",
     "products": [
         {
