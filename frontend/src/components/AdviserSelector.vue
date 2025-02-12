@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import BaseSelect from '@/components/BaseSelect.vue';
-import AdviserSelectOverlay from '@/components/AdviserSelectOverlay.vue';
 import { useUserStore } from '@/stores/user.store';
 import { computed, onMounted, ref, watch } from 'vue';
 import { useOverlay } from '@/composables/useOverlay';
@@ -33,7 +32,7 @@ watch(() => user.selectedAdviserGuid, () => {
 	selectedAdviserGuid.value = user.selectedAdviserGuid ?? ''
 
 	if (!user.selectedAdviserGuid)
-		overlay.openOverlay(AdviserSelectOverlay)
+		overlay.openAdviserSelectOverlay()
 	
 })
 

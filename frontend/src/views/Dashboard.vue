@@ -8,8 +8,6 @@ import { useUserStore } from '@/stores/user.store';
 import CertiBot from '@/components/CertiBot.vue'
 import CertiBotResponses from '@/components/CertiBotResponses.vue'
 import { useOverlay } from '@/composables/useOverlay';
-import AdviserSelector from '@/components/AdviserSelector.vue';
-import AdviserSelectOverlay from '@/components/AdviserSelectOverlay.vue';
 
 const user = useUserStore()
 const overlay = useOverlay()
@@ -17,7 +15,7 @@ const overlay = useOverlay()
 await user.fetchTrainingData()
 
 if (user.role == 'delegate')
-	overlay.openOverlay(AdviserSelectOverlay)
+	overlay.openAdviserSelectOverlay()
 
 </script>
 <template>

@@ -10,7 +10,7 @@ const overlay = useOverlay()
 	<Transition name="fade" mode="out-in">
 		<div
 			v-if="overlay.component.value"
-			class="w-full p-20 bg-[#111928] flex-col justify-start items-center inline-flex"
+			class="w-full p-20 flex-col justify-start items-center inline-flex"
 		>
 			<component
 				:is="overlay.component.value"
