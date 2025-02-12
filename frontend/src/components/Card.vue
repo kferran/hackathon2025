@@ -1,7 +1,12 @@
 <script setup lang="ts">
+import { computed } from 'vue';
+
 const props = defineProps<{
 	image?: string
+	wideImage?: boolean
 }>()
+
+const aspect = computed(() => props.wideImage ? 'aspect-5/2' : 'aspect-1/1')
 </script>
 
 <template>
@@ -14,7 +19,7 @@ const props = defineProps<{
 	>
         <img 
 			:src="image"
-			class="rounded-t-lg w-full aspect-1/1" 
+			:class="`rounded-t-lg w-full ${aspect}`" 
 			alt=""
 		/>
     </a>

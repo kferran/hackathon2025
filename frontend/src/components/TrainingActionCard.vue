@@ -9,8 +9,10 @@ import { getEstimatedTrainingTimeInMinutes, getProductTrainingCompletionPercenta
 import { computed } from 'vue';
 import { useOverlay } from '@/composables/useOverlay';
 import TrainingOverlay from '@/components/TrainingOverlay.vue';
+import { useTraining } from '@/composables/useTraining';
 
 const overlay = useOverlay()
+const training = useTraining()
 
 const props = defineProps<{
 	course: ICourse
@@ -20,10 +22,6 @@ const completionPercentage = computed(() =>50)
 
 const minutes = computed(() => 5)
 
-const imageUrl = computed(() => {
-	// always return athene until we have stuff from the payload
-	return atheneLogo
-})
 
 function handleOpenTraining() {
 	overlay.openOverlay(
@@ -35,7 +33,7 @@ function handleOpenTraining() {
 
 <template>
 	<Card
-		:image="imageUrl"
+		:image="training.resolveTrainingImage(course)"
 	>
 		<ProgressBar
 			label="% Complete"

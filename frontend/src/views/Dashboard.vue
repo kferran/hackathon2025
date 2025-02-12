@@ -3,6 +3,7 @@ import NavLayout from '@/layouts/NavLayout.vue';
 import ProductTable from '@/components/ProductTable.vue';
 import UpcomingTraining from '@/components/UpcomingTraining.vue';
 import RequiredTraining from '@/components/RequiredTraining.vue';
+import LatestTraining from '@/components/LatestTraining.vue';
 import { useUserStore } from '@/stores/user.store';
 import CertiBot from '@/components/CertiBot.vue'
 import { useOverlay } from '@/composables/useOverlay';
@@ -33,6 +34,7 @@ await user.fetchTrainingData()
 				<UpcomingTraining />
 				<CertiBot/>
 				<ProductTable />
+				<LatestTraining />
 			</div>
 		</Transition>
     </div>

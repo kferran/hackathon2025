@@ -1,7 +1,8 @@
 import axios from "axios";
-import { type IProducerTraining, ProducerTraining, Product, type IProduct } from "@/core/model";
+import { type IProducerTraining, ProducerTraining, Product, type IProduct, type ICourse } from "@/core/model";
 import { computed, ref } from "vue";
 import { getLocalStorageData } from '@/core/storage';
+import atheneLogo from '@/assets/athene-logo.png'
 
 const mockSuccessTrainingData = {
     "producerNPN": "12345678",
@@ -443,10 +444,15 @@ export function useTraining() {
 		}
 	}
 
+	const resolveTrainingImage = (course : ICourse) => {
+		return atheneLogo
+	}
+
     return {
         producerTraining: computed(() => producerTraining.value),
         getProductTraining,
-		getStatusData
+		getStatusData,
+		resolveTrainingImage
     }
 
 }
@@ -528,7 +534,8 @@ const mockJSON = `{
                                 "continuingEducationHours": 10,
                                 "completionDate": "2025-02-10",
                                 "certificationState": "CT",
-                                "expirationDate": "2026-02-09"
+                                "expirationDate": "2026-02-09",
+								"creationDate": "2025-02-01"
                             }
                         },
 						{
@@ -549,7 +556,8 @@ const mockJSON = `{
                                 "continuingEducationHours": 10,
                                 "completionDate": "2025-02-10",
                                 "certificationState": "CT",
-                                "expirationDate": "2026-02-09"
+                                "expirationDate": "2026-02-09",
+								"creationDate": "2025-02-02"
                             }
                         },
 						{
@@ -570,7 +578,30 @@ const mockJSON = `{
                                 "continuingEducationHours": 10,
                                 "completionDate": "2025-02-10",
                                 "certificationState": "CT",
-                                "expirationDate": "2026-02-09"
+                                "expirationDate": "2026-02-09",
+								"creationDate": "2025-02-03"
+                            }
+                        },
+						{
+                            "provider": "RGED",
+                            "providerId": "ABC Inc",
+                            "courseURL": "https://www.reged.com/courses/132566",
+                            "completionStage": "New",
+                            "courseId": "132566",
+                            "courseName": "Splendid Carrier A Version 5J Producer Training",
+                            "courseMethod": "Online",
+                            "courseType": "Product",
+                            "productTrainingType": "Fixed Deferred Annuity",
+                            "status": "Elective",
+                            "completionInformation": {
+                                "certificationDate": "2025-02-10",
+                                "credentialHours": 25,
+                                "certificationNumber": "34652643",
+                                "continuingEducationHours": 10,
+                                "completionDate": "2025-02-10",
+                                "certificationState": "CT",
+                                "expirationDate": "2026-02-09",
+								"creationDate": "2025-02-04"
                             }
                         }
                     ]
