@@ -8,6 +8,8 @@ export const useUserStore = defineStore('user', () => {
 
 	const user = ref<IUser | null | undefined>()
 
+	const selectedAdviser = ref<IUser | null | undefined>()
+
 	const relatedDelegates = ref<IUser[]>([])
 
 	const relatedAdvisers = ref<IUser[]>([])
@@ -19,7 +21,7 @@ export const useUserStore = defineStore('user', () => {
 	const fetchTrainingData = async () => {
 		const { getProductTraining } = useTraining()
 
-		const fetchedTrainingData = await getProductTraining(user.value?.npn ?? '')
+		const fetchedTrainingData = await getProductTraining(selectedAdviser.value?.npn ?? '')
 
 		trainingData.value = fetchedTrainingData
 	}
@@ -31,8 +33,19 @@ export const useUserStore = defineStore('user', () => {
 		if (storageSession.currentUserGuid) {
 			user.value = storage.allUsers?.find(x => x.guid == storageSession.currentUserGuid)
 
+			if (user.value?.role == 'adviser') {
+				selectedAdviser.value = user.value
+				storageSession.selectedAdviserGuid = user.value.guid
+			} else if (storageSession.selectedAdviserGuid) {
+				await setSelectedAdviserByGuid(storageSession.selectedAdviserGuid)
+			}
+			
 			isAuthorized.value = true
 		}
+
+		setSessionStorageData(storageSession)
+
+		await fetchAllPossibleRelations()
 	}
 
 	const fetchAllPossibleRelations = async () => {
@@ -48,6 +61,20 @@ export const useUserStore = defineStore('user', () => {
 		storage.userRelationships.push(relation)
 
 		setLocalStorageData(storage)
+	}
+
+	const setSelectedAdviserByGuid = async (guid : string) => {
+		const storageSession = getSessionStorageData()
+		const user = relatedAdvisers.value.find(x => x.guid == guid)
+
+		selectedAdviser.value = user
+		console.log('setting selectee', guid)
+
+		storageSession.selectedAdviserGuid = user?.guid ?? ''
+
+		setSessionStorageData(storageSession)
+
+		await fetchTrainingData()
 	}
 
 	const fetchDelegates = async () => {
@@ -84,10 +111,15 @@ export const useUserStore = defineStore('user', () => {
 		user.value = existingUser
 		isAuthorized.value = true
 
+		if (user.value?.role == 'adviser')
+			selectedAdviser.value = user.value
+
 		storageSession.currentUserGuid = existingUser.guid
 
 		setLocalStorageData(storageLocal)
 		setSessionStorageData(storageSession)
+
+		await fetchAllPossibleRelations()
 
 		return true
 	}
@@ -106,12 +138,14 @@ export const useUserStore = defineStore('user', () => {
 		user.value = null
 		relatedAdvisers.value = []
 		relatedDelegates.value = []
+		selectedAdviser.value = null
 		trainingData.value = null
 
 		const storage = getLocalStorageData()
 		const storageSession = getSessionStorageData()
 
 		storageSession.currentUserGuid = null
+		storageSession.selectedAdviserGuid = null
 
 		setLocalStorageData(storage)
 		setSessionStorageData(storageSession)
@@ -134,6 +168,9 @@ export const useUserStore = defineStore('user', () => {
 		createRelationship,
 		fetchCurrentUser,
 		fetchTrainingData,
+		setSelectedAdviserByGuid,
+		selectedAdviserGuid: computed(() => selectedAdviser.value?.guid),
+		selectedAdviser: computed(() => selectedAdviser.value),
 		relatedDelegates: computed(() => relatedDelegates.value),
 		relatedAdvisers: computed(() => relatedAdvisers.value),
 		trainingData: computed(() => trainingData.value),

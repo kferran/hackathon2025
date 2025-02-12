@@ -9,6 +9,7 @@ export interface ILocalStorageData {
 
 export interface ISessionStorageData {
 	currentUserGuid?: string | null | undefined
+	selectedAdviserGuid?: string | null | undefined
 }
 
 export const getLocalStorageData = () : ILocalStorageData => {

@@ -7,16 +7,21 @@ import LatestTraining from '@/components/LatestTraining.vue';
 import { useUserStore } from '@/stores/user.store';
 import CertiBot from '@/components/CertiBot.vue'
 import { useOverlay } from '@/composables/useOverlay';
+import AdviserSelector from '@/components/AdviserSelector.vue';
+import AdviserSelectOverlay from '@/components/AdviserSelectOverlay.vue';
 
 const user = useUserStore()
 const overlay = useOverlay()
 
 await user.fetchTrainingData()
+
+if (user.role == 'delegate')
+	overlay.openOverlay(AdviserSelectOverlay)
 </script>
 <template>
 <NavLayout>
     <div>
-		<Transition name="fade">
+		<Transition name="fade" mode="out-in">
 			<div
 				v-if="overlay.component.value"
 				class="w-full p-20 bg-[#111928] flex-col justify-start items-center inline-flex"
@@ -28,8 +33,14 @@ await user.fetchTrainingData()
 			</div>
 		</Transition>
 
-		<Transition name="fade">
-			<div v-if="!overlay.component.value">
+		<Transition name="fade" mode="out-in">
+			<AdviserSelector
+				v-if="!overlay.component.value && user.role == 'delegate'"
+			/>
+		</Transition>
+
+		<Transition name="fade" mode="out-in">
+			<div v-if="!overlay.component.value && user.selectedAdviser">
 				<RequiredTraining />
 				<UpcomingTraining />
 				<CertiBot/>
