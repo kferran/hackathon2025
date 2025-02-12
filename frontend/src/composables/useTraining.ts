@@ -319,7 +319,21 @@ export function useTraining() {
     }
 
     const resolveTrainingImage = (course: ICourse) => {
-        return atheneLogo
+		let logoImage = genericLogo
+
+		if (logoIndex == 0)
+			logoImage = atheneLogo
+		if (logoIndex == 1)
+			logoImage = edjLogo
+		if (logoIndex == 2)
+			logoImage = nationwideLogo
+
+		logoIndex++
+
+		if (logoIndex > 3)
+			logoIndex = 0
+
+		return logoImage
     }
 
     return {
