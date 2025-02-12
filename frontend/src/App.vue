@@ -2,8 +2,15 @@
 import ThemeSwitchButton from '@/components/ThemeSwitchButton.vue';
 import { useOverlay } from '@/composables/useOverlay';
 import { RouterLink, RouterView } from 'vue-router'
+import 'flowbite';
+import { onMounted } from 'vue'
+import { initFlowbite } from 'flowbite'
 
 const overlay = useOverlay()
+onMounted(() => {
+    initFlowbite();
+})
+
 </script>
 
 <template>

@@ -42,7 +42,7 @@ function handleOpenTraining() {
 			:minutesRemaining="minutes"
 		/>
 
-		<div class="text-white text-lg font-bold leading-snug mt-1">{{ course.courseName }}</div>
+		<div class="text-white text-lg font-bold leading-snug mt-1">{{ course?.courseName }}</div>
 
 		<div class="text-gray-400 text-base font-normal leading-normal mt-1">Build your expertise with our latest annuities training module. Learn key concepts, explore product features, and gain insights to better serve your clients. Start learning today!</div>
 
