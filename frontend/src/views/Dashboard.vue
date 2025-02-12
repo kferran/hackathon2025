@@ -8,11 +8,11 @@ import UpcomingTraining from '@/components/UpcomingTraining.vue';
 import RequiredTraining from '@/components/RequiredTraining.vue';
 import { computed } from 'vue';
 import { useUserStore } from '@/stores/user.store';
+import CertiBot from '@/components/CertiBot.vue'
 
 const user = useUserStore()
 
 await user.fetchTrainingData()
-
 </script>
 <template>
 <NavLayout>
@@ -21,6 +21,7 @@ await user.fetchTrainingData()
 		
 		<UpcomingTraining />
 
+		<CertiBot/>
         <ProductTable />
     </div>
 </NavLayout>
