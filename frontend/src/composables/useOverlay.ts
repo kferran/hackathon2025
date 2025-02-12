@@ -1,7 +1,7 @@
 import { ref, shallowRef, type Component } from "vue";
 
-const component = ref<OverlayComponent>(null)
-const props = shallowRef<any>(null)
+const component = shallowRef<OverlayComponent>(null)
+const props = ref<any>(null)
 
 export type OverlayComponent = Component | null
 

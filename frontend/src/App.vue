@@ -6,7 +6,7 @@ import { RouterLink, RouterView } from 'vue-router'
 <template>
     <RouterView v-slot="{ Component }">
         <template v-if="Component">
-            <Transition mode="out-in">
+            <Transition mode="out-in" name="fade">
                 <KeepAlive>
                     <Suspense>
                         <!-- main content -->
@@ -39,4 +39,5 @@ import { RouterLink, RouterView } from 'vue-router'
     </RouterView>
 </template>
 
-<style scoped></style>
+<style scoped>
+</style>
