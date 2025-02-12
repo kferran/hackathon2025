@@ -154,12 +154,19 @@ export const useUserStore = defineStore('user', () => {
 			() => trainingData.value?.carriers
 			?? []
 		)),
-		incompleteTrainings: computed(
+		incompleteRequiredTrainings: computed(
 			() => trainingData.value?.carriers
 				?.flatMap(x => x.products)
 				?.flatMap(x => x.courses)
-				?.filter(course => course.status != 'Completed')
+				?.filter(course => course.status == 'Action Required')
 				?? []
-		)
+		),
+		incompleteNonRequiredTrainings: computed(
+			() => trainingData.value?.carriers
+				?.flatMap(x => x.products)
+				?.flatMap(x => x.courses)
+				?.filter(course => course.status != 'Completed' && course.status != 'Action Required')
+				?? []
+		),
 	}
 })
