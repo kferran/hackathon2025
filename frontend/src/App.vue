@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import ThemeSwitchButton from '@/components/ThemeSwitchButton.vue';
 import { RouterLink, RouterView } from 'vue-router'
+import 'flowbite';
+import { onMounted } from 'vue'
+import { initFlowbite } from 'flowbite'
+onMounted(() => {
+    initFlowbite();
+})
 </script>
 
 <template>
