@@ -6,7 +6,7 @@ const props = defineProps<{
 	wideImage?: boolean
 }>()
 
-const aspect = computed(() => props.wideImage ? 'aspect-384/192' : 'aspect-1/1')
+const wide = computed(() => props.wideImage ? 'height: 192px; overflow: hidden; object-fit: cover' : '')
 </script>
 
 <template>
@@ -19,7 +19,8 @@ const aspect = computed(() => props.wideImage ? 'aspect-384/192' : 'aspect-1/1')
 	>
         <img 
 			:src="image"
-			:class="`rounded-t-lg w-full ${aspect}`" 
+			:class="`rounded-t-lg w-full aspect-1/1`"
+			:style="wide"
 			alt=""
 		/>
     </a>

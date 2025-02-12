@@ -19,6 +19,7 @@ const props = defineProps<{
 <template>
 	<Card
 		:image="training.resolveTrainingImage(course)"
+		:wideImage="true"
 	>
 		<div class="text-white text-lg font-bold leading-snug mt-5">{{ course.courseName }}</div>
 
