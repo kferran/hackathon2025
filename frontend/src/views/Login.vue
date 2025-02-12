@@ -22,16 +22,18 @@ async function handleLogin() {
 </script>
 <template>
 <div>
-	<p>The login page</p>
+	<div class=" text-white text-4xl font-extrabold leading-[45px]">Login</div>
 
 	<form class="max-w-sm mx-auto">
 		<div class="mb-5">
 			<BaseInput
+				v-model="username"
 				label="User Name"
 			/>
 		</div>
 		<div class="mb-5">
 			<BaseInput
+				v-model="password"
 				label="Password"
 				type="password"
 			/>

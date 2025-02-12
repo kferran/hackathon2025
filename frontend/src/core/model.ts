@@ -49,6 +49,23 @@
 //     // Add other possible registration types as needed
 // }
 
+export type UserRole = 'adviser' | 'delegate'
+
+export interface IUser {
+	guid?: string,
+	firstName: string,
+	lastName: string,
+	userName: string,
+	password: string,
+	role: UserRole,
+}
+
+export interface IUserRelationship {
+	parentGuid: string,
+	childGuid: string,
+	relationshipType: 'adviser-delegate'
+}
+
 export interface IAppointment {
     status: string;
     lineOfAuthority: string;

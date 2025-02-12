@@ -1,25 +1,47 @@
+import type { UserRole } from "@/core/model";
 import { useUserStore } from "@/stores/user.store";
-import type { NavigationGuardNext, RouteLocationNormalizedGeneric } from "vue-router";
+import type { RouteLocationNormalizedGeneric } from "vue-router";
 
+export type Middleware = (to : RouteLocationNormalizedGeneric, from: RouteLocationNormalizedGeneric) => Promise<any>
 
-export async function checkAll() {
-	
+export const pipeRedirects = (...middleware : Middleware[]) : Middleware => async (to, from) => {
+	for (const check of middleware) {
+		const redirect = await check(to, from)
+
+		if (redirect)
+			return redirect
+	}
+
+	return null
 }
 
-export async function checkAuthorization(to : RouteLocationNormalizedGeneric, from: RouteLocationNormalizedGeneric, next : NavigationGuardNext) {
+export const checkAuthorization = (redirect : string = 'login') : Middleware => async (to, from) => {
 	const user = useUserStore()
+
+	await user.fetchCurrentUser()
 
 	if (!user.isAuthorized)
-		next({ name: 'login' })
+		return { name: redirect }
 
-	next()
+	return null
 }
 
-export async function checkLoggedIn(to : RouteLocationNormalizedGeneric, from: RouteLocationNormalizedGeneric, next : NavigationGuardNext) {
+export const  checkRoles = (roles : UserRole[], redirect : string = 'dashboard') : Middleware => async (to, from) => {
 	const user = useUserStore()
 
-	if (user.isAuthorized)
-		next({ name: 'dashboard' })
+	if (!user.role || !roles.includes(user.role))
+		return { name: redirect }
 
-	next()
+	return null
+}
+
+export const checkLoggedIn = (redirect : string = 'dashboard') : Middleware => async (to, from) => {
+	const user = useUserStore()
+
+	await user.fetchCurrentUser()
+
+	if (user.isAuthorized)
+		return { name: redirect }
+
+	return null
 }
