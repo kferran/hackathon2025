@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { type IProducerTraining } from '@/core/model';
+import { useUserStore } from '@/stores/user.store';
+
+const user = useUserStore()
 
 const props = defineProps<{
     producerTraining: IProducerTraining | undefined
@@ -18,7 +21,7 @@ const props = defineProps<{
                         src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gouch.png"
                         alt="Micheal Avatar">
                     <h3 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                        <a href="#">Michael Gough</a>
+                        <a href="#">{{ user.name }}</a>
                     </h3>
                     <p class="font-light text-gray-500 dark:text-gray-400">name@company.com</p>
                     <ul class="flex justify-center mb-4 space-x-1">

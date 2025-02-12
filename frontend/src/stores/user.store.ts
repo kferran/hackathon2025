@@ -1,5 +1,5 @@
 import type { IUser, IUserRelationship, UserRole } from "@/core/model";
-import { getLocalStorageData, setLocalStorageData } from "@/core/storage";
+import { getLocalStorageData, getSessionStorageData, setLocalStorageData, setSessionStorageData } from "@/core/storage";
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
 
@@ -15,9 +15,10 @@ export const useUserStore = defineStore('user', () => {
 
 	const fetchCurrentUser = async () => {
 		const storage = getLocalStorageData()
+		const storageSession = getSessionStorageData()
 
-		if (storage.currentUserGuid) {
-			user.value = storage.allUsers?.find(x => x.guid == storage.currentUserGuid)
+		if (storageSession.currentUserGuid) {
+			user.value = storage.allUsers?.find(x => x.guid == storageSession.currentUserGuid)
 
 			isAuthorized.value = true
 		}
@@ -61,11 +62,10 @@ export const useUserStore = defineStore('user', () => {
 	}
 
 	const login = async (loginUsername : string, loginPassword : string) => {
-		const storage = getLocalStorageData()
+		const storageLocal = getLocalStorageData()
+		const storageSession = getSessionStorageData()
 		
-		const existingUser = storage.allUsers?.find(x => x.userName == loginUsername)
-
-		console.log(storage.allUsers, existingUser)
+		const existingUser = storageLocal.allUsers?.find(x => x.userName == loginUsername)
 
 		if (!existingUser)
 			return false
@@ -73,9 +73,10 @@ export const useUserStore = defineStore('user', () => {
 		user.value = existingUser
 		isAuthorized.value = true
 
-		storage.currentUserGuid = existingUser.guid
+		storageSession.currentUserGuid = existingUser.guid
 
-		setLocalStorageData(storage)
+		setLocalStorageData(storageLocal)
+		setSessionStorageData(storageSession)
 
 		return true
 	}
@@ -96,10 +97,12 @@ export const useUserStore = defineStore('user', () => {
 		relatedDelegates.value = []
 
 		const storage = getLocalStorageData()
+		const storageSession = getSessionStorageData()
 
-		storage.currentUserGuid = null
+		storageSession.currentUserGuid = null
 
 		setLocalStorageData(storage)
+		setSessionStorageData(storageSession)
 	}
 
 	return {
@@ -107,6 +110,7 @@ export const useUserStore = defineStore('user', () => {
 		role: computed(() => user.value?.role),
 		guid: computed(() => user.value?.guid),
 		npn: computed(() => user.value?.npn ?? '123456789'),
+		name: computed(() => `${user.value?.firstName} ${user.value?.lastName}`),
 		login,
 		logout,
 		createNewUser,
