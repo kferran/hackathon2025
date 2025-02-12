@@ -6,7 +6,7 @@ const props = defineProps<{
 	wideImage?: boolean
 }>()
 
-const aspect = computed(() => props.wideImage ? 'aspect-5/2' : 'aspect-1/1')
+const aspect = computed(() => props.wideImage ? 'aspect-384/192' : 'aspect-1/1')
 </script>
 
 <template>
