@@ -106,6 +106,7 @@ export const useUserStore = defineStore('user', () => {
 		isAuthorized: computed(() => isAuthorized.value),
 		role: computed(() => user.value?.role),
 		guid: computed(() => user.value?.guid),
+		npn: computed(() => user.value?.npn ?? '123456789'),
 		login,
 		logout,
 		createNewUser,

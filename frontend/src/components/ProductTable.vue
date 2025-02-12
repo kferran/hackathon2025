@@ -291,7 +291,7 @@ const props = defineProps<{
                             </thead>
                             <tbody>
                                 <tr class="border-b border-gray-200 dark:border-gray-700"
-                                    v-for="(product, index) in props.producerTraining.products" :key="index">
+                                    v-for="(product, index) in props.producerTraining?.products" :key="index">
                                     <th scope="row"
                                         class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ product.name }}</th>

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { type IProducerTraining, ProducerTraining, Product, type IProduct } from "@/core/model";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 const mockSuccessTrainingData = {
     "producerNPN": "12345678",
@@ -420,6 +420,7 @@ export function useTraining() {
             
             await new Promise(resolve => setTimeout(resolve, 500));
             const response = new ProducerTraining(mockSuccessTrainingData);
+			console.log(response)
             return producerTraining.value = response
         } catch (error) {
             console.error('Error fetching product training:', error);
@@ -428,7 +429,7 @@ export function useTraining() {
     }
 
     return {
-        producerTraining,
+        producerTraining: computed(() => producerTraining.value),
         getProductTraining
     }
 

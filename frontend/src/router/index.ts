@@ -6,6 +6,7 @@ import CreateUser from '@/views/CreateUser.vue'
 import { checkAuthorization, checkLoggedIn, checkRoles, pipeRedirects } from './middleware'
 import { useUserStore } from '@/stores/user.store'
 import ManageDelegates from '@/views/ManageDelegates.vue'
+import { useTraining } from '@/composables/useTraining'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,18 +33,28 @@ const router = createRouter({
 			path: '/dashbord',
 			name: 'dashboard',
 			component: Dashboard,
-			beforeEnter: pipeRedirects(
-				checkAuthorization(),
-				checkRoles([
-					'adviser', 
-					'delegate'
-				])
-			)
+			beforeEnter: async (to, from) => {
+
+				const training = useTraining()
+
+				const redirectHandler = pipeRedirects(
+					checkAuthorization(),
+					checkRoles([
+						'adviser', 
+						'delegate'
+					])
+				)
+
+				const redirect = await redirectHandler(to, from)
+
+				if (redirect)
+					return redirect
+			}
 		},
 		{
 			path: '/adviser',
 			name: 'adviser',
-			redirect: { name: 'adviser.dashboard' },
+			redirect: { name: 'dashboard' },
 			beforeEnter: pipeRedirects(
 				checkAuthorization(),
 				checkRoles([
@@ -52,11 +63,6 @@ const router = createRouter({
 				])
 			),
 			children: [
-				{
-					path: 'dashboard',
-					name: 'adviser.dashboard',
-					component: Dashboard
-				},
 				{
 					path: 'manage-delegates',
 					name: 'adviser.manage-delegates',

@@ -13,6 +13,7 @@ const newUser = ref<IUser>({
 	lastName: '',
 	userName: '',
 	password: '',
+	npn: '',
 	role: 'adviser'
 })
 
@@ -64,6 +65,13 @@ async function handleCreateUser() {
 				label="Role"
 				v-model="newUser.role"
 				:options="possibleRoles"
+			/>
+		</div>
+
+		<div class="mb-5">
+			<BaseInput
+				label="NPN"
+				v-model="newUser.npn"
 			/>
 		</div>
 

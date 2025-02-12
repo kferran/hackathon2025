@@ -58,6 +58,7 @@ export interface IUser {
 	userName: string,
 	password: string,
 	role: UserRole,
+	npn?: string
 }
 
 export interface IUserRelationship {
