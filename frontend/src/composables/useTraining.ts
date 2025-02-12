@@ -3,6 +3,11 @@ import { type IProducerTraining, ProducerTraining, Product, type IProduct, type 
 import { computed, ref } from "vue";
 import { getLocalStorageData } from '@/core/storage';
 import atheneLogo from '@/assets/athene-logo.png'
+import nationwideLogo from '@/assets/nationwide-logo.png'
+import edjLogo from '@/assets/edward-jones.png'
+import genericLogo from '@/assets/laptop.jpg'
+
+let logoIndex : number = 0
 
 const mockJSON = `{
     "producerNPN": "888777666A",
