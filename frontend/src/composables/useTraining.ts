@@ -420,7 +420,7 @@ export function useTraining() {
             const response = await axios({
                 method: 'get',
                 withCredentials: false,
-                url: `https://dc1pp0md2g.execute-api.us-west-2.amazonaws.com/v1/test?npn=${npn}`
+                url: `https://dc1pp0md2g.execute-api.us-west-2.amazonaws.com/v1/producer/details?npn=${npn}`
             });
             
             producerTraining.value = response.data as IProducerTraining
