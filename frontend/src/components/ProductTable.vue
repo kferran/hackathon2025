@@ -1,21 +1,28 @@
 <script setup lang="ts">
 import type { ICarrier } from '@/core/model';
 import { useUserStore } from '@/stores/user.store';
-import { ref } from 'vue';
+import { ref, type ComputedRef } from 'vue';
 
 const user = useUserStore()
 
 const productSearchTerm = ref<string>('')
-console.log(user.allCarriers)
-console.log(user.allProductsWithCarrier)
+const tableData = ref<ComputedRef>(user.allProductsWithCarrier)
 
 function handleFilterCarrier(carrier:ICarrier){
     console.log(carrier)
     console.log(user.allProductsWithCarrier)
 }
 
-function handleFilterProducts(){
-    
+function handleFilterProducts(data){
+    console.log(data)
+
+    tableData.value = tableData.value.filter(x => {
+        if(
+            x.product?.name?.toLowerCase().includes(data)
+        ){
+            return x
+        }
+    }) ?? user.allProductsWithCarrier
 }
 </script>
 
@@ -166,8 +173,9 @@ function handleFilterProducts(){
                                         id="simple-search"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                         placeholder="Search for trainings"
-                                        v-model="productSearchTerm"
                                     >
+                                    <!-- v-model="productSearchTerm"
+                                        @input="data => handleFilterProducts(data.target.value)" -->
                                 </div>
                             </form>
                         </div>                       
