@@ -6,6 +6,7 @@ import CreateUser from '@/views/CreateUser.vue'
 import { checkAuthorization, checkLoggedIn, checkRoles, pipeRedirects } from './middleware'
 import { useUserStore } from '@/stores/user.store'
 import ManageDelegates from '@/views/ManageDelegates.vue'
+import Training from '@/views/TrainingMock.vue'
 import { useTraining } from '@/composables/useTraining'
 
 const router = createRouter({
@@ -86,6 +87,11 @@ const router = createRouter({
 					component: Storage
 				}
 			]
+		},
+		{
+			path: '/training',
+			name: 'training',
+			component: Training
 		}
 	],
 })

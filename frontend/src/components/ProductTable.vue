@@ -3,11 +3,6 @@ import { type IProducerTraining } from '@/core/model';
 import { useUserStore } from '@/stores/user.store';
 
 const user = useUserStore()
-
-const props = defineProps<{
-    producerTraining: IProducerTraining | undefined
-
-}>()
 </script>
 
 <template>
@@ -294,12 +289,12 @@ const props = defineProps<{
                             </thead>
                             <tbody>
                                 <tr class="border-b border-gray-200 dark:border-gray-700"
-                                    v-for="(product, index) in props.producerTraining?.products" :key="index">
+                                    v-for="(item, index) in user.allProductsWithCarrier" :key="index">
                                     <th scope="row"
                                         class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ product.name }}</th>
-                                    <td class="px-4 py-3">{{ producerTraining.carrier }}</td>
-                                    <td class="px-4 py-3">{{ product.type }}</td>
+                                        {{ item.product.name }}</th>
+                                    <td class="px-4 py-3">{{ item.carrier.carrier}}</td>
+                                    <td class="px-4 py-3">{{ item.product.type }}</td>
                                     <td class="px-4 py-3">
                                         Lorem Ipsum is simply dummy text of the printing and typesetting industry.</td>
                                     <td class="px-4 py-3"><span

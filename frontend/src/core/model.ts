@@ -114,23 +114,55 @@ export interface ICourse {
     courseName: string;
     courseMethod: string;
     courseType: string;
+	courseURL: string
     productTrainingType: string;
+	status: 'Not Started' | 'Pending' | 'In Progress' | 'Action Required' | 'Completed'
     completionInformation: ICompletionInformation;
 }
 
+export interface ICarrier {
+	carrier: string
+	assets: {
+		logo_url: string
+		carrierDisplayName: string
+		appointments:IAppointment[]
+	}
+	products: IProduct[]
+}
+
 export interface IProducerTraining {
-    ProducerNPN: string
-	Carrier: string
-    products: IProduct[]
+    producerNPN: string
+	producerCRD: string
+	producerAgentCode: string
+	producerFirstName: string
+	producerLastName: string
+	producerEmailAddress: string
+    stateLicenses: IStateLicense[]
+    registrations: IRegistration[]
+	carriers: ICarrier[]
 }
 
 export class ProducerTraining implements IProducerTraining {
-    ProducerNPN: string;
-    Carrier: string;
-    products: IProduct[];
+	producerNPN: string;
+	producerCRD: string;
+	producerAgentCode: string;
+	producerFirstName: string;
+	producerLastName: string;
+	producerEmailAddress: string;
+	stateLicenses: IStateLicense[];
+	registrations: IRegistration[];
+	carriers: ICarrier[];
 
     constructor(data: IProducerTraining) {
-        Object.assign(this, data);
+        this.producerNPN = data.producerNPN
+		this.producerCRD = data.producerCRD
+		this.producerAgentCode = data.producerAgentCode
+		this.producerFirstName = data.producerFirstName
+		this.producerLastName = data.producerLastName
+		this.producerEmailAddress = data.producerEmailAddress
+		this.stateLicenses = data.stateLicenses
+		this.registrations = data.registrations
+		this.carriers = data.carriers
     }
 
 }
@@ -142,10 +174,7 @@ export interface IProduct {
     jurisdiction: string[] // StateType?
     carrierAuthorization: boolean,
     distributorAuthorization: boolean,
-    courses: ICourse[],
-    appointments:IAppointment[],
-    stateLicenses: IStateLicense[]
-    registrations: IRegistration[]
+    courses: ICourse[]
 }
 
 export class Product implements IProduct {
