@@ -1,22 +1,30 @@
 <script setup lang="ts">
 import type { ICarrier } from '@/core/model';
 import { useUserStore } from '@/stores/user.store';
-import { ref } from 'vue';
+import { initFlowbite } from 'flowbite';
+import { onMounted, ref } from 'vue';
 
 const user = useUserStore()
+
+const filteredProductsWithCarrier = ref(user.allProductsWithCarrier ?? [])
 
 const productSearchTerm = ref<string>('')
 console.log(user.allCarriers)
 console.log(user.allProductsWithCarrier)
 
 function handleFilterCarrier(carrier:ICarrier){
-    console.log(carrier)
-    console.log(user.allProductsWithCarrier)
+    filteredProductsWithCarrier.value = user.allProductsWithCarrier.filter(x => x.carrier.carrier == carrier.carrier)
 }
 
 function handleFilterProducts(){
     
 }
+
+onMounted(() => {
+	initFlowbite()
+
+	filteredProductsWithCarrier.value = user.allProductsWithCarrier
+})
 </script>
 
 <template>
@@ -96,7 +104,7 @@ function handleFilterProducts(){
                     </li>
                     <li>
                         <button type="button"
-                            class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                            class="cursor-pointer flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                             aria-controls="dropdown-tasks" data-collapse-toggle="dropdown-tasks">
                             <svg aria-hidden="true"
                                 class="flex-shrink-0 w-6 h-6 text-gray-400 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
@@ -119,7 +127,7 @@ function handleFilterProducts(){
                                 <button
                                     type="button"
                                     @click="handleFilterCarrier(carrier)" 
-                                    class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                                    class="cursor-pointer flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                                 >
                                     {{carrier.carrier}}
                                 </button>
@@ -189,7 +197,7 @@ function handleFilterProducts(){
                             </thead>
                             <tbody>
                                 <tr class="border-b border-gray-200 dark:border-gray-700"
-                                    v-for="(item, index) in user.allProductsWithCarrier" :key="index">
+                                    v-for="(item, index) in filteredProductsWithCarrier" :key="index">
                                     <th scope="row"
                                         class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ item.product.name }}</th>
