@@ -419,9 +419,10 @@ export function useTraining() {
             // return producerTraining.value = response.data
             
             await new Promise(resolve => setTimeout(resolve, 500));
-            const response = new ProducerTraining(mockSuccessTrainingData);
-			console.log(response)
-            return producerTraining.value = response
+            const response = new ProducerTraining(JSON.parse(mockJSON));
+            producerTraining.value = response as IProducerTraining
+
+			return producerTraining.value
         } catch (error) {
             console.error('Error fetching product training:', error);
             throw error;
@@ -434,3 +435,90 @@ export function useTraining() {
     }
 
 }
+
+const mockJSON = `{
+    "producerNPN": "888777666A",
+    "producerCRD": "1234567890",
+    "producerAgentCode": "1234567890",
+    "producerFirstName": "John",
+    "producerLastName": "Doe",
+    "producerEmailAddress": "jdoe@gmail.com",
+    "stateLicenses": [
+        {
+            "jurisdiction": "CT",
+            "number": "72adsfG99",
+            "status": "Active",
+            "licenseDate": "2025-02-12",
+            "expirationDate": "2026-02-12",
+            "resident": true,
+            "lineOfAuthority": "Annuity",
+            "licenseType": "Producer"
+        }
+    ],
+    "registrations": [
+        {
+            "status": "In Good Standing",
+            "crdNumber": "1234567890",
+            "type": "Series 6",
+            "firmName": "Advisor A",
+            "firmCRDNumber": "1234567890"
+        },
+        {
+            "status": "In Good Standing",
+            "crdNumber": "1234567890",
+            "type": "Series 7",
+            "firmName": "Advisor A",
+            "firmCRDNumber": "1234567890"
+        }
+    ],
+    "carriers": [
+        {
+            "carrier": "ABC Inc",
+            "assets": {
+                "logo_url": "https://www.abcinc.com/logo.png",
+                "carrierDisplayName": "ABC Inc"
+            },
+            "appointments": [
+                {
+                    "status": "Accepted",
+                    "lineOfAuthority": "Annuity",
+                    "appointmentDate": "2025-02-12",
+                    "appointmentState": "CT"
+                }
+            ],
+            "products": [
+                {
+                    "name": "Carrier Product Name ABC",
+                    "type": "Fixed Annuity",
+                    "CUSIP": "283479577",
+                    "jurisdictions": ["CT", "MA"],
+                    "carrierAuthorization": true,
+                    "distributorAuthorization": true,
+                    "courses": [
+                        {
+                            "provider": "RGED",
+                            "providerId": "ABC Inc",
+                            "courseURL": "https://www.reged.com/courses/132566",
+                            "completionStage": "New",
+                            "courseId": "132566",
+                            "courseName": "Carrier A Version 5 Producer Training",
+                            "courseMethod": "Online",
+                            "courseType": "Product",
+                            "productTrainingType": "Fixed Deferred Annuity",
+                            "status": "Not Started",
+                            "completionInformation": {
+                                "certificationDate": "2025-02-10",
+                                "credentialHours": 25,
+                                "certificationNumber": "34652643",
+                                "continuingEducationHours": 10,
+                                "completionDate": "2025-02-10",
+                                "certificationState": "CT",
+                                "expirationDate": "2026-02-09"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}`

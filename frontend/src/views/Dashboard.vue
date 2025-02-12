@@ -9,27 +9,19 @@ import RequiredTraining from '@/components/RequiredTraining.vue';
 import { computed } from 'vue';
 import { useUserStore } from '@/stores/user.store';
 
-const { producerTraining, getProductTraining } = useTraining()
 const user = useUserStore()
 
-await getProductTraining(user.npn)
-
-const anyProductsRequireTraining = computed(() => {
-	return producerTraining.value?.products?.some(p => getProductTrainingCompletionPercentage(p) != 1)
-})
+await user.fetchTrainingData()
 
 </script>
 <template>
 <NavLayout>
     <div>
-		<RequiredTraining 
-			v-if="anyProductsRequireTraining"
-			:producerTraining="producerTraining"
-		/>
+		<RequiredTraining />
 		
 		<UpcomingTraining />
 
-        <ProductTable :producerTraining="producerTraining" />
+        <ProductTable />
     </div>
 </NavLayout>
 

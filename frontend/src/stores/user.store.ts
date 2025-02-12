@@ -1,4 +1,5 @@
-import type { IUser, IUserRelationship, UserRole } from "@/core/model";
+import { useTraining } from "@/composables/useTraining";
+import { ProducerTraining, type IProducerTraining, type IUser, type IUserRelationship, type UserRole } from "@/core/model";
 import { getLocalStorageData, getSessionStorageData, setLocalStorageData, setSessionStorageData } from "@/core/storage";
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
@@ -12,6 +13,16 @@ export const useUserStore = defineStore('user', () => {
 	const relatedAdvisers = ref<IUser[]>([])
 
 	const isAuthorized = ref(false)
+
+	const trainingData = ref<IProducerTraining | null>(null)
+
+	const fetchTrainingData = async () => {
+		const { getProductTraining } = useTraining()
+
+		const fetchedTrainingData = await getProductTraining(user.value?.npn ?? '')
+
+		trainingData.value = fetchedTrainingData
+	}
 
 	const fetchCurrentUser = async () => {
 		const storage = getLocalStorageData()
@@ -95,6 +106,7 @@ export const useUserStore = defineStore('user', () => {
 		user.value = null
 		relatedAdvisers.value = []
 		relatedDelegates.value = []
+		trainingData.value = null
 
 		const storage = getLocalStorageData()
 		const storageSession = getSessionStorageData()
@@ -104,6 +116,8 @@ export const useUserStore = defineStore('user', () => {
 		setLocalStorageData(storage)
 		setSessionStorageData(storageSession)
 	}
+
+
 
 	return {
 		isAuthorized: computed(() => isAuthorized.value),
@@ -119,7 +133,33 @@ export const useUserStore = defineStore('user', () => {
 		fetchAllPossibleRelations,
 		createRelationship,
 		fetchCurrentUser,
+		fetchTrainingData,
 		relatedDelegates: computed(() => relatedDelegates.value),
-		relatedAdvisers: computed(() => relatedAdvisers.value)
+		relatedAdvisers: computed(() => relatedAdvisers.value),
+		trainingData: computed(() => trainingData.value),
+		allProducts: (computed(
+			() => trainingData.value?.carriers
+			?.flatMap(x => x.products)
+			?? []
+		)),
+		allProductsWithCarrier: (computed(
+			() => trainingData.value?.carriers
+			?.flatMap(carrier => carrier.products.map(product => ({
+				product,
+				carrier
+			})))
+			?? []
+		)),
+		allCarriers: (computed(
+			() => trainingData.value?.carriers
+			?? []
+		)),
+		incompleteTrainings: computed(
+			() => trainingData.value?.carriers
+				?.flatMap(x => x.products)
+				?.flatMap(x => x.courses)
+				?.filter(course => course.status != 'Completed')
+				?? []
+		)
 	}
 })
