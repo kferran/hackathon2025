@@ -1,16 +1,30 @@
 <script setup lang="ts">
 import ThemeSwitchButton from '@/components/ThemeSwitchButton.vue';
+import { useOverlay } from '@/composables/useOverlay';
 import { RouterLink, RouterView } from 'vue-router'
+
+const overlay = useOverlay()
 </script>
 
 <template>
+	<Transition name="fade" mode="out-in">
+		<div
+			v-if="overlay.component.value"
+			class="w-full p-20 bg-[#111928] flex-col justify-start items-center inline-flex"
+		>
+			<component
+				:is="overlay.component.value"
+				v-bind="overlay.props.value"
+			/>
+		</div>
+	</Transition>
     <RouterView v-slot="{ Component }">
         <template v-if="Component">
             <Transition mode="out-in" name="fade">
                 <KeepAlive>
                     <Suspense>
                         <!-- main content -->
-                        <div>
+                        <div v-show="!overlay.component.value">
                             <component :is="Component"></component>
                         </div>
                         <!-- loading state -->

@@ -67,9 +67,14 @@ export const useUserStore = defineStore('user', () => {
 		const storageSession = getSessionStorageData()
 		const user = relatedAdvisers.value.find(x => x.guid == guid)
 
-		selectedAdviser.value = user
-		console.log('setting selectee', guid)
+		if (!user) {
+			selectedAdviser.value = null
+			storageSession.selectedAdviserGuid = ''
 
+			return
+		}
+
+		selectedAdviser.value = user
 		storageSession.selectedAdviserGuid = user?.guid ?? ''
 
 		setSessionStorageData(storageSession)

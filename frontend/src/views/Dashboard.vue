@@ -24,25 +24,7 @@ if (user.role == 'delegate')
 <NavLayout>
     <div>
 		<Transition name="fade" mode="out-in">
-			<div
-				v-if="overlay.component.value"
-				class="w-full p-20 bg-[#111928] flex-col justify-start items-center inline-flex"
-			>
-				<component
-					:is="overlay.component.value"
-					v-bind="overlay.props.value"
-				/>
-			</div>
-		</Transition>
-
-		<Transition name="fade" mode="out-in">
-			<AdviserSelector
-				v-if="!overlay.component.value && user.role == 'delegate'"
-			/>
-		</Transition>
-
-		<Transition name="fade" mode="out-in">
-			<div v-if="!overlay.component.value && user.selectedAdviser">
+			<div v-if="user.selectedAdviser">
 				<RequiredTraining />
 				<UpcomingTraining />
 				<div id="chat">
