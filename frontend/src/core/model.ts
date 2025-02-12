@@ -116,7 +116,8 @@ export interface ICourse {
     courseType: string;
 	courseURL: string
     productTrainingType: string;
-	status: 'Not Started' | 'Pending' | 'In Progress' | 'Action Required' | 'Completed'
+	creationDate: string;
+	status: 'Not Started' | 'Pending' | 'In Progress' | 'Action Required' | 'Completed' | 'Elective'
     completionInformation: ICompletionInformation;
 }
 

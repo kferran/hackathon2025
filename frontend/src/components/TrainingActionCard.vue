@@ -7,6 +7,10 @@ import nwLogoUrl from '@/assets/nationwide-logo.png'
 import atheneLogo from '@/assets/athene-logo.png'
 import { getEstimatedTrainingTimeInMinutes, getProductTrainingCompletionPercentage, type ICourse, type IProducerTraining, type IProduct } from '@/core/model';
 import { computed } from 'vue';
+import { useOverlay } from '@/composables/useOverlay';
+import TrainingOverlay from '@/components/TrainingOverlay.vue';
+
+const overlay = useOverlay()
 
 const props = defineProps<{
 	course: ICourse
@@ -20,6 +24,12 @@ const imageUrl = computed(() => {
 	// always return athene until we have stuff from the payload
 	return atheneLogo
 })
+
+function handleOpenTraining() {
+	overlay.openOverlay(
+		TrainingOverlay
+	)
+}
 
 </script>
 
@@ -41,6 +51,7 @@ const imageUrl = computed(() => {
 		<div class="">
 			<BaseButton
 				class="mt-5"
+				@click="handleOpenTraining"
 			>
 				Complete Training
 			</BaseButton>

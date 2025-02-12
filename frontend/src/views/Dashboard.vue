@@ -1,28 +1,40 @@
 <script setup lang="ts">
 import NavLayout from '@/layouts/NavLayout.vue';
-import TrainingActionCard from '@/components/TrainingActionCard.vue'
 import ProductTable from '@/components/ProductTable.vue';
-import { useTraining } from '@/composables/useTraining';
-import { getProductTrainingCompletionPercentage } from '@/core/model';
 import UpcomingTraining from '@/components/UpcomingTraining.vue';
 import RequiredTraining from '@/components/RequiredTraining.vue';
-import { computed } from 'vue';
 import { useUserStore } from '@/stores/user.store';
 import CertiBot from '@/components/CertiBot.vue'
+import { useOverlay } from '@/composables/useOverlay';
 
 const user = useUserStore()
+const overlay = useOverlay()
 
 await user.fetchTrainingData()
 </script>
 <template>
 <NavLayout>
     <div>
-		<RequiredTraining />
-		
-		<UpcomingTraining />
+		<Transition name="fade">
+			<div
+				v-if="overlay.component.value"
+				class="w-full p-20 bg-[#111928] flex-col justify-start items-center inline-flex"
+			>
+				<component
+					:is="overlay.component.value"
+					v-bind="overlay.props.value"
+				/>
+			</div>
+		</Transition>
 
-		<CertiBot/>
-        <ProductTable />
+		<Transition name="fade">
+			<div v-if="!overlay.component.value">
+				<RequiredTraining />
+				<UpcomingTraining />
+				<CertiBot/>
+				<ProductTable />
+			</div>
+		</Transition>
     </div>
 </NavLayout>
 

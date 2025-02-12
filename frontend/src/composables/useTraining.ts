@@ -1,6 +1,7 @@
 import axios from "axios";
 import { type IProducerTraining, ProducerTraining, Product, type IProduct } from "@/core/model";
 import { computed, ref } from "vue";
+import { getLocalStorageData } from '@/core/storage';
 
 const mockSuccessTrainingData = {
     "producerNPN": "12345678",
@@ -405,23 +406,23 @@ const mockNigoProductData = {
 
 
 export function useTraining() {
-
     const producerTraining = ref<IProducerTraining>()
 
     const getProductTraining = async (npn: string): Promise<IProducerTraining> => {
         try {
-            // const response = await axios({
-            //     method: 'get',
-            //     withCredentials: false,
-            //     url: `https://dc1pp0md2g.execute-api.us-west-2.amazonaws.com/v1/test?npn=${npn}`
-            // });
+            const response = await axios({
+                method: 'get',
+                withCredentials: false,
+                url: `https://dc1pp0md2g.execute-api.us-west-2.amazonaws.com/v1/test?npn=${npn}`
+            });
             
-            // return producerTraining.value = response.data
-            
-            await new Promise(resolve => setTimeout(resolve, 500));
-            const response = new ProducerTraining(JSON.parse(mockJSON));
-            producerTraining.value = response as IProducerTraining
+            producerTraining.value = response.data as IProducerTraining
 
+			if (!producerTraining.value.producerNPN) {
+				console.warn('falling back to mock data')
+           		producerTraining.value = new ProducerTraining(JSON.parse(mockJSON)) as IProducerTraining
+			}
+            
 			return producerTraining.value
         } catch (error) {
             console.error('Error fetching product training:', error);
@@ -429,9 +430,23 @@ export function useTraining() {
         }
     }
 
+	const getStatusData = async (userGuid : string, cusip : string) => {
+		const storage = getLocalStorageData()
+		const user = storage.allUsers?.find(x => x.guid == userGuid)
+		const userTraining = await getProductTraining(user?.npn ?? '')
+		const products = userTraining.carriers.flatMap(x => x.products)
+		const product = products.find(x => x.CUSIP == cusip)
+
+		return {
+			user,
+			product
+		}
+	}
+
     return {
         producerTraining: computed(() => producerTraining.value),
-        getProductTraining
+        getProductTraining,
+		getStatusData
     }
 
 }
@@ -506,6 +521,48 @@ const mockJSON = `{
                             "courseType": "Product",
                             "productTrainingType": "Fixed Deferred Annuity",
                             "status": "Not Started",
+                            "completionInformation": {
+                                "certificationDate": "2025-02-10",
+                                "credentialHours": 25,
+                                "certificationNumber": "34652643",
+                                "continuingEducationHours": 10,
+                                "completionDate": "2025-02-10",
+                                "certificationState": "CT",
+                                "expirationDate": "2026-02-09"
+                            }
+                        },
+						{
+                            "provider": "RGED",
+                            "providerId": "ABC Inc",
+                            "courseURL": "https://www.reged.com/courses/132566",
+                            "completionStage": "New",
+                            "courseId": "132566",
+                            "courseName": "Super Carrier A Version 5 Producer Training",
+                            "courseMethod": "Online",
+                            "courseType": "Product",
+                            "productTrainingType": "Fixed Deferred Annuity",
+                            "status": "Not Started",
+                            "completionInformation": {
+                                "certificationDate": "2025-02-10",
+                                "credentialHours": 25,
+                                "certificationNumber": "34652643",
+                                "continuingEducationHours": 10,
+                                "completionDate": "2025-02-10",
+                                "certificationState": "CT",
+                                "expirationDate": "2026-02-09"
+                            }
+                        },
+						{
+                            "provider": "RGED",
+                            "providerId": "ABC Inc",
+                            "courseURL": "https://www.reged.com/courses/132566",
+                            "completionStage": "New",
+                            "courseId": "132566",
+                            "courseName": "Ultra Carrier A Version 5 Producer Training",
+                            "courseMethod": "Online",
+                            "courseType": "Product",
+                            "productTrainingType": "Fixed Deferred Annuity",
+                            "status": "Elective",
                             "completionInformation": {
                                 "certificationDate": "2025-02-10",
                                 "credentialHours": 25,
