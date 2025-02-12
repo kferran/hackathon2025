@@ -1,6 +1,7 @@
 import axios from "axios";
 import { type IProducerTraining, ProducerTraining, Product, type IProduct } from "@/core/model";
 import { computed, ref } from "vue";
+import { getLocalStorageData } from '@/core/storage';
 
 const mockSuccessTrainingData = {
     "producerNPN": "12345678",
@@ -405,7 +406,6 @@ const mockNigoProductData = {
 
 
 export function useTraining() {
-
     const producerTraining = ref<IProducerTraining>()
 
     const getProductTraining = async (npn: string): Promise<IProducerTraining> => {
@@ -429,9 +429,23 @@ export function useTraining() {
         }
     }
 
+	const getStatusData = async (userGuid : string, cusip : string) => {
+		const storage = getLocalStorageData()
+		const user = storage.allUsers?.find(x => x.guid == userGuid)
+		const userTraining = await getProductTraining(user?.npn ?? '')
+		const products = userTraining.carriers.flatMap(x => x.products)
+		const product = products.find(x => x.CUSIP == cusip)
+
+		return {
+			user,
+			product
+		}
+	}
+
     return {
         producerTraining: computed(() => producerTraining.value),
-        getProductTraining
+        getProductTraining,
+		getStatusData
     }
 
 }
