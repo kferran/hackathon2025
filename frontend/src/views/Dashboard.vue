@@ -6,6 +6,7 @@ import RequiredTraining from '@/components/RequiredTraining.vue';
 import LatestTraining from '@/components/LatestTraining.vue';
 import { useUserStore } from '@/stores/user.store';
 import CertiBot from '@/components/CertiBot.vue'
+import CertiBotResponses from '@/components/CertiBotResponses.vue'
 import { useOverlay } from '@/composables/useOverlay';
 import AdviserSelector from '@/components/AdviserSelector.vue';
 import AdviserSelectOverlay from '@/components/AdviserSelectOverlay.vue';
@@ -17,6 +18,7 @@ await user.fetchTrainingData()
 
 if (user.role == 'delegate')
 	overlay.openOverlay(AdviserSelectOverlay)
+
 </script>
 <template>
 <NavLayout>
@@ -43,7 +45,10 @@ if (user.role == 'delegate')
 			<div v-if="!overlay.component.value && user.selectedAdviser">
 				<RequiredTraining />
 				<UpcomingTraining />
-				<CertiBot/>
+				<div id="chat">
+					<CertiBotResponses />
+					<CertiBot />
+				</div>
 				<ProductTable />
 				<LatestTraining />
 			</div>
