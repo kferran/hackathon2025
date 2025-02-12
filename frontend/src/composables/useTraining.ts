@@ -530,6 +530,48 @@ const mockJSON = `{
                                 "certificationState": "CT",
                                 "expirationDate": "2026-02-09"
                             }
+                        },
+						{
+                            "provider": "RGED",
+                            "providerId": "ABC Inc",
+                            "courseURL": "https://www.reged.com/courses/132566",
+                            "completionStage": "New",
+                            "courseId": "132566",
+                            "courseName": "Super Carrier A Version 5 Producer Training",
+                            "courseMethod": "Online",
+                            "courseType": "Product",
+                            "productTrainingType": "Fixed Deferred Annuity",
+                            "status": "Not Started",
+                            "completionInformation": {
+                                "certificationDate": "2025-02-10",
+                                "credentialHours": 25,
+                                "certificationNumber": "34652643",
+                                "continuingEducationHours": 10,
+                                "completionDate": "2025-02-10",
+                                "certificationState": "CT",
+                                "expirationDate": "2026-02-09"
+                            }
+                        },
+						{
+                            "provider": "RGED",
+                            "providerId": "ABC Inc",
+                            "courseURL": "https://www.reged.com/courses/132566",
+                            "completionStage": "New",
+                            "courseId": "132566",
+                            "courseName": "Ultra Carrier A Version 5 Producer Training",
+                            "courseMethod": "Online",
+                            "courseType": "Product",
+                            "productTrainingType": "Fixed Deferred Annuity",
+                            "status": "Elective",
+                            "completionInformation": {
+                                "certificationDate": "2025-02-10",
+                                "credentialHours": 25,
+                                "certificationNumber": "34652643",
+                                "continuingEducationHours": 10,
+                                "completionDate": "2025-02-10",
+                                "certificationState": "CT",
+                                "expirationDate": "2026-02-09"
+                            }
                         }
                     ]
                 }
