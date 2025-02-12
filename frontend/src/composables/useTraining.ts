@@ -3,6 +3,11 @@ import { type IProducerTraining, ProducerTraining, Product, type IProduct, type 
 import { computed, ref } from "vue";
 import { getLocalStorageData } from '@/core/storage';
 import atheneLogo from '@/assets/athene-logo.png'
+import nationwideLogo from '@/assets/nationwide-logo.png'
+import edjLogo from '@/assets/edward-jones.png'
+import genericLogo from '@/assets/laptop.jpg'
+
+let logoIndex : number = 0
 
 const mockSuccessTrainingData = {
     "producerNPN": "12345678",
@@ -451,7 +456,20 @@ export function useTraining() {
 	}
 
 	const resolveTrainingImage = (course : ICourse) => {
-		return atheneLogo
+		let logo = genericLogo
+		if (logoIndex == 0)
+			logo = atheneLogo
+		if (logoIndex == 1)
+			logo = edjLogo
+		if (logoIndex == 2)
+			logo = nationwideLogo
+
+		logoIndex++
+
+		if (logoIndex > 3)
+			logoIndex = 0
+
+		return logo
 	}
 
     return {
