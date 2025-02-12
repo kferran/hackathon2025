@@ -4,6 +4,7 @@ import Card from '@/components/Card.vue';
 import ProgressBar from '@/components/ProgressBar.vue';
 import Icon from '@/components/Icon.vue';
 import nwLogoUrl from '@/assets/nationwide-logo.png'
+import atheneLogo from '@/assets/athene-logo.png'
 import { getEstimatedTrainingTimeInMinutes, getProductTrainingCompletionPercentage, type IProduct } from '@/core/model';
 import { computed } from 'vue';
 
@@ -15,11 +16,16 @@ const completionPercentage = computed(() => getProductTrainingCompletionPercenta
 
 const minutes = computed(() => getEstimatedTrainingTimeInMinutes(props.product))
 
+const imageUrl = computed(() => {
+	// always return athene until we have stuff from the payload
+	return atheneLogo
+})
+
 </script>
 
 <template>
 	<Card
-		:image="nwLogoUrl"
+		:image="imageUrl"
 	>
 		<ProgressBar
 			label="% Complete"
