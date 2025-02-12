@@ -6,9 +6,10 @@ import BaseButton from '@/components/BaseButton.vue';
 import type { IUser } from '@/core/model';
 import { useUserStore } from '@/stores/user.store';
 import router from '@/router';
+import { randomGuid } from '@/core/utils';
 
 const newUser = ref<IUser>({
-	guid: crypto.randomUUID(),
+	guid: randomGuid(),
 	firstName: '',
 	lastName: '',
 	userName: '',
