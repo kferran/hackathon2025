@@ -92,6 +92,38 @@ const router = createRouter({
 			path: '/training',
 			name: 'training',
 			component: Training
+		},
+		{
+			path: '/status/:userGuid/:cusip',
+			name: 'status',
+			redirect: { name: 'status.carrier' },
+			children: [
+				{
+					path: 'carrier',
+					name: 'status.carrier',
+					component: () => import('@/views/status/CarrierStatus.vue')
+				},
+				{
+					path: 'clearing-house',
+					name: 'status.clearing-house',
+					component: () => import('@/views/status/ClearingHouseStatus.vue')
+				},
+				{
+					path: 'training-provider',
+					name: 'status.training-provider',
+					component: () => import('@/views/status/TrainingProviderStatus.vue')
+				},
+				{
+					path: 'distribution-partner',
+					name: 'status.distribution-partner',
+					component: () => import('@/views/status/DistributionPartnerStatus.vue')
+				},
+				{
+					path: 'eapp-provider',
+					name: 'status.eapp-provider',
+					component: () => import('@/views/status/EAppProviderStatus.vue')
+				}
+			]
 		}
 	],
 })
