@@ -26,7 +26,7 @@ const {  requestsAndResponses, loadingChatResponses } = useChatiBot()
                     <div class="text-white">{{ item.prompt }}</div>
                 </article>
             </div>
-            <div class="inline-flex justify-start mb-4">
+            <div class="inline-flex justify-start w-full mb-4">
                 <article
                     class="p-3 mb-2 text-base bg-gray-50 rounded-lg dark:bg-gray-700 border-2 border-gray-200 w-2/3">
                     <header class="flex justify-between items-center mb-2">
