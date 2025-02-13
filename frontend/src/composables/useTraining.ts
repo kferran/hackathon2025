@@ -4,8 +4,11 @@ import { computed, ref } from "vue";
 import { getLocalStorageData } from '@/core/storage';
 import atheneLogo from '@/assets/athene-logo.png'
 import nationwideLogo from '@/assets/nationwide-logo.png'
+import genericLogo2 from '@/assets/laptop2.jpg'
 import edjLogo from '@/assets/edward-jones.png'
 import genericLogo from '@/assets/laptop.jpg'
+import { useUserStore } from "@/stores/user.store";
+import { CARRIER_ATHENE, CARRIER_LINCOLN } from "@/core/carrierIds";
 
 let logoIndex : number = 0
 
@@ -319,17 +322,22 @@ export function useTraining() {
     }
 
     const resolveTrainingImage = (course: ICourse) => {
+		const userStore = useUserStore()
+		const carrrier = userStore.trainingData?.carriers.find(x => x.products.flatMap(y => y.courses.flatMap(z => z.courseId)).includes(course.courseId))
+
+		
 		let logoImage = genericLogo
 
-		if (logoIndex == 0)
+		if (carrrier?.carrier == CARRIER_ATHENE)
 			logoImage = atheneLogo
-		if (logoIndex == 1)
+		else if (carrrier?.carrier == CARRIER_LINCOLN)
+			logoImage = genericLogo2
+		else if (logoIndex % 2 == 0)
+			logoImage = genericLogo
+		else
 			logoImage = edjLogo
 
 		logoIndex++
-
-		if (logoIndex > 2)
-			logoIndex = 0
 
 		return logoImage
     }
