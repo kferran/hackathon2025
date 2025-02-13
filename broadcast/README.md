@@ -20,7 +20,7 @@ This code relies on a few different AWS components:
  
   subscribemock needs a lambda function triggered off an API gateway with the route `/receive-publish/{proxy+}` with POST and OPTIONS
  
- ```arn:aws:lambda:us-west-2:799217004793:function:T4Subscribe```
+ ```arn:aws:lambda:us-west-2:799217004793:function:publish-receive```
  
  a single API is needed to house the API triggers for both subscribe and subscribermock
  
