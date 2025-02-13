@@ -13,7 +13,7 @@ const toast = useToast()
 const user = ref<IUser | null | undefined>(null)
 const product = ref<IProduct | null | undefined>(null)
 
-const isComplete = (product : IProduct | undefined) => !!product?.carrierAuthorization && !!product?.distributorAuthorization
+const isComplete = (product : IProduct | undefined) => !!product?.courses.every(x => x.status == 'Complete')
 
 
 poller.startPoller(5000, async () => {
@@ -23,6 +23,8 @@ poller.startPoller(5000, async () => {
 
 	user.value = data.user
 	product.value = data.product
+
+	console.log(data.product, isComplete(product.value))
 
 	if (wasNotComplete && isComplete(product.value))
 		toast.push({
