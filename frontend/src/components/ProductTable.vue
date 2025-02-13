@@ -1,10 +1,41 @@
 <script setup lang="ts">
-import { type IProducerTraining } from '@/core/model';
+import type { ICarrier, IProduct } from '@/core/model';
+import { useUserStore } from '@/stores/user.store';
+import { initFlowbite } from 'flowbite';
+import { computed, onMounted, ref, type ComputedRef } from 'vue';
 
-const props = defineProps<{
-    producerTraining: IProducerTraining | undefined
+const user = useUserStore()
 
-}>()
+const filteredProductsWithCarrier = ref(user.allProductsWithCarrier ?? [])
+
+const productSearchTerm = ref<string>('')
+const tableData = ref<ComputedRef>(user.allProductsWithCarrier)
+
+function handleFilterCarrier(carrier:ICarrier){
+    filteredProductsWithCarrier.value = user.allProductsWithCarrier.filter(x => x.carrier.carrier == carrier.carrier)
+}
+
+// function handleFilterProducts(data){
+//     console.log(data)
+
+//     tableData.value = tableData.value.filter(x => {
+//         if(
+//             x.product?.name?.toLowerCase().includes(data)
+//         ){
+//             return x
+//         }
+//     }) ?? user.allProductsWithCarrier
+// }
+
+function handleFilterProducts(product : IProduct){
+    filteredProductsWithCarrier.value = user.allProductsWithCarrier.filter(x => x.product.name == product.name)
+}
+
+onMounted(() => {
+	initFlowbite()
+
+	filteredProductsWithCarrier.value = user.allProductsWithCarrier
+})
 </script>
 
 <template>
@@ -14,11 +45,9 @@ const props = defineProps<{
             <div
                 class="overflow-y-auto py-4 px-3 h-full bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700">
                 <div class="text-center text-gray-500 dark:text-gray-400">
-                    <img class="mx-auto mb-4 w-20 h-20 rounded-full"
-                        src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gouch.png"
-                        alt="Micheal Avatar">
+                    <img class="mx-auto mb-4 w-20 h-20 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gouch.png" alt="Micheal Avatar">
                     <h3 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                        <a href="#">Michael Gough</a>
+                        <a href="#">{{ user.name }}</a>
                     </h3>
                     <p class="font-light text-gray-500 dark:text-gray-400">name@company.com</p>
                     <ul class="flex justify-center mb-4 space-x-1">
@@ -58,31 +87,37 @@ const props = defineProps<{
                     </ul>
                 </div>
                 <ul class="pt-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700">
-                    <li>
-                        <a href="#"
-                            class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+					<li>
+                        <button type="button"
+                            class="cursor-pointer flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                            aria-controls="dropdown-products" data-collapse-toggle="dropdown-products">
                             <svg aria-hidden="true"
-                                class="w-6 h-6 text-gray-400 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                class="flex-shrink-0 w-6 h-6 text-gray-400 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
                                 fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path>
                                 <path fill-rule="evenodd"
-                                    d="M10 2a1 1 0 00-1 1v1a1 1 0 002 0V3a1 1 0 00-1-1zM4 4h3a3 3 0 006 0h3a2 2 0 012 2v9a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2zm2.5 7a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm2.45 4a2.5 2.5 0 10-4.9 0h4.9zM12 9a1 1 0 100 2h3a1 1 0 100-2h-3zm-1 4a1 1 0 011-1h2a1 1 0 110 2h-2a1 1 0 01-1-1z"
+                                    d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z"
                                     clip-rule="evenodd"></path>
                             </svg>
-                            <span class="ml-3">My Training Scorecard</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                            <svg aria-hidden="true"
-                                class="w-6 h-6 text-gray-400 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                            <span class="flex-1 ml-3 text-left whitespace-nowrap">By Product</span>
+                            <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z">
-                                </path>
+                                <path fill-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"></path>
                             </svg>
-                            <span class="ml-3">By Product</span>
-                        </a>
+                        </button>
+                        <ul id="dropdown-products" class="hidden py-2 space-y-2">
+                            <li v-for="product in user.allUniqueProducts">
+                                <button
+                                    type="button"
+                                    @click="handleFilterProducts(product)" 
+                                    class="cursor-pointer flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                                >
+                                    {{ product.name }}
+                                </button>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="#"
@@ -98,9 +133,12 @@ const props = defineProps<{
                         </a>
                     </li>
                     <li>
-                        <button type="button"
-                            class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                            aria-controls="dropdown-tasks" data-collapse-toggle="dropdown-tasks">
+                        <button 
+                            type="button"
+                            class="cursor-pointer flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                            aria-controls="dropdown-tasks" 
+                            data-collapse-toggle="dropdown-tasks"
+                        >
                             <svg aria-hidden="true"
                                 class="flex-shrink-0 w-6 h-6 text-gray-400 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
                                 fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -117,20 +155,15 @@ const props = defineProps<{
                                     clip-rule="evenodd"></path>
                             </svg>
                         </button>
-                        <ul id="dropdown-tasks" class="hidden py-2 space-y-2">
-                            <li>
-                                <a href="#"
-                                    class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">To
-                                    do</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">In
-                                    progress</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Completed</a>
+                        <ul id="dropdown-tasks" class="hidden space-y-2">
+                            <li v-for="carrier in user.allCarriers">
+                                <button
+                                    type="button"
+                                    @click="handleFilterCarrier(carrier)" 
+                                    class="cursor-pointer flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                                >
+                                    {{carrier.assets.carrierDisplayName}}
+                                </button>
                             </li>
                         </ul>
                     </li>
@@ -153,8 +186,7 @@ const props = defineProps<{
 
         <section class="p-3 sm:p-5">
             <div class="mx-auto max-w-screen-xl px-4">
-                <h2 class="inline-block mb-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-white">Products
-                    Your Team Can Sell</h2>
+                <h2 class="inline-block mb-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-white">Products Your Team Can Sell</h2>
                 <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
                     <div
                         class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
@@ -170,140 +202,77 @@ const props = defineProps<{
                                                 clip-rule="evenodd" />
                                         </svg>
                                     </div>
-                                    <input type="text" id="simple-search"
+                                    <input 
+                                        type="text" 
+                                        id="simple-search"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder="Search for trainings">
+                                        placeholder="Search for trainings"
+                                    >
+                                    <!-- v-model="productSearchTerm"
+                                        @input="data => handleFilterProducts(data.target.value)" -->
                                 </div>
                             </form>
-                        </div>
-                        <!-- <div
-                        class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                        <button type="button"
-                            class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
-                            <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewbox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <path clip-rule="evenodd" fill-rule="evenodd"
-                                    d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
-                            </svg>
-                            Add product
-                        </button>
-                        <div class="flex items-center space-x-3 w-full md:w-auto">
-                            <button id="actionsDropdownButton" data-dropdown-toggle="actionsDropdown"
-                                class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                                type="button">
-                                <svg class="-ml-1 mr-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
-                                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                    <path clip-rule="evenodd" fill-rule="evenodd"
-                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                </svg>
-                                Actions
-                            </button>
-                            <div id="actionsDropdown"
-                                class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                                <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
-                                    aria-labelledby="actionsDropdownButton">
-                                    <li>
-                                        <a href="#"
-                                            class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mass
-                                            Edit</a>
-                                    </li>
-                                </ul>
-                                <div class="py-1">
-                                    <a href="#"
-                                        class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete
-                                        all</a>
-                                </div>
-                            </div>
-                            <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown"
-                                class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                                type="button">
-                                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
-                                    class="h-4 w-4 mr-2 text-gray-400" viewbox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                        d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                                Filter
-                                <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
-                                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                    <path clip-rule="evenodd" fill-rule="evenodd"
-                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                </svg>
-                            </button>
-                            <div id="filterDropdown"
-                                class="z-10 hidden w-48 p-3 bg-white rounded-lg shadow dark:bg-gray-700">
-                                <h6 class="mb-3 text-sm font-medium text-gray-900 dark:text-white">Choose brand</h6>
-                                <ul class="space-y-2 text-sm" aria-labelledby="filterDropdownButton">
-                                    <li class="flex items-center">
-                                        <input id="apple" type="checkbox" value=""
-                                            class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                        <label for="apple"
-                                            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">Apple
-                                            (56)</label>
-                                    </li>
-                                    <li class="flex items-center">
-                                        <input id="fitbit" type="checkbox" value=""
-                                            class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                        <label for="fitbit"
-                                            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">Microsoft
-                                            (16)</label>
-                                    </li>
-                                    <li class="flex items-center">
-                                        <input id="razor" type="checkbox" value=""
-                                            class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                        <label for="razor"
-                                            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">Razor
-                                            (49)</label>
-                                    </li>
-                                    <li class="flex items-center">
-                                        <input id="nikon" type="checkbox" value=""
-                                            class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                        <label for="nikon"
-                                            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">Nikon
-                                            (12)</label>
-                                    </li>
-                                    <li class="flex items-center">
-                                        <input id="benq" type="checkbox" value=""
-                                            class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                        <label for="benq"
-                                            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">BenQ
-                                            (74)</label>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div> -->
+                        </div>                       
                     </div>
                     <div class="overflow-x-auto">
                         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead
                                 class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
-                                    <th scope="col" class="px-4 py-3">Product name</th>
-                                    <th scope="col" class="px-4 py-3">Carrier</th>
-                                    <th scope="col" class="px-4 py-3">Product Type</th>
-                                    <th scope="col" class="px-4 py-3">Description</th>
-                                    <th scope="col" class="px-4 py-3">Status</th>
-                                    <th scope="col" class="px-4 py-3">
+                                    <th scope="col" class="px-2 py-2">Product name</th>
+                                    <th scope="col" class="px-2 py-2">Carrier</th>
+                                    <th scope="col" class="px-2 py-2">Product Type</th>
+                                    <th scope="col" class="px-2 py-2">Description</th>
+                                    <th scope="col" class="px-2 py-2">Status</th>
+                                    <!-- <th scope="col" class="px-4 py-3">
                                         <span class="sr-only">Actions</span>
-                                    </th>
+                                    </th> -->
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr class="border-b border-gray-200 dark:border-gray-700"
-                                    v-for="(product, index) in props.producerTraining.products" :key="index">
-                                    <th scope="row"
-                                        class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ product.name }}</th>
-                                    <td class="px-4 py-3">{{ producerTraining.carrier }}</td>
-                                    <td class="px-4 py-3">{{ product.type }}</td>
-                                    <td class="px-4 py-3">
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.</td>
-                                    <td class="px-4 py-3"><span
-                                            class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-purple-900 dark:text-purple-300">in
-                                            progress</span>
+                                    v-for="(item, index) in filteredProductsWithCarrier" :key="index">
+                                    <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        {{ item.product.name }}
+                                    </th>
+                                    <td class="px-2 py-2">{{ item.carrier.assets.carrierDisplayName }}</td>
+                                    <td class="px-2 py-2">{{ item.product.type }}</td>
+                                    <td class="px-2 py-2">
+                                        Lorem Ipsum is..
                                     </td>
-                                    <td class="px-4 py-3 flex items-center justify-end">
+                                    <td class="px-2 py-2">
+                                        <span 
+                                            v-if="item.product.courses.every(x => x.status === 'Pending')"
+                                            class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-yellow-900 dark:text-yellow-300"
+                                        >
+                                            Pending
+                                        </span>
+                                        <span 
+                                            v-if="item.product.courses.every(x => x.status === 'In Progress')"
+                                            class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-purple-900 dark:text-purple-300"
+                                        >
+                                            In Progress
+                                        </span>
+                                        <span 
+                                            v-if="item.product.courses.every(x => x.status === 'Action Required')"
+                                            class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-red-900 dark:text-red-300"
+                                        >
+                                            Action Required
+                                        </span>
+                                        <span 
+                                            v-if="item.product.courses.every(x => x.status === 'Complete')"
+                                            class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-green-900 dark:text-green-300"
+                                        >
+                                            Complete
+                                        </span>
+                                        <span 
+                                            v-if="item.product.courses.every(x => x.status === 'Not Started')"
+                                            class="bg-pink-100 text-pink-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-pink-900 dark:text-pink-300"
+                                        >
+                                            Not Started
+                                        </span>
+                                    </td>
+                                    <!-- <td class="px-4 py-3 flex items-center justify-end">
                                         <button id="apple-imac-27-dropdown-button"
                                             data-dropdown-toggle="apple-imac-27-dropdown"
                                             class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
@@ -332,7 +301,7 @@ const props = defineProps<{
                                                     class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
                                             </div>
                                         </div>
-                                    </td>
+                                    </td> -->
                                 </tr>
                             </tbody>
                         </table>
@@ -396,5 +365,4 @@ const props = defineProps<{
             </div>
         </section>
     </div>
-
 </template>

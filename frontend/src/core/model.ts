@@ -49,6 +49,24 @@
 //     // Add other possible registration types as needed
 // }
 
+export type UserRole = 'adviser' | 'delegate'
+
+export interface IUser {
+	guid?: string,
+	firstName: string,
+	lastName: string,
+	userName: string,
+	password: string,
+	role: UserRole,
+	npn?: string
+}
+
+export interface IUserRelationship {
+	parentGuid: string,
+	childGuid: string,
+	relationshipType: 'adviser-delegate'
+}
+
 export interface IAppointment {
     status: string;
     lineOfAuthority: string;
@@ -96,23 +114,56 @@ export interface ICourse {
     courseName: string;
     courseMethod: string;
     courseType: string;
+	courseURL: string
     productTrainingType: string;
+	creationDate: string;
+	status: 'Not Started' | 'Pending' | 'In Progress' | 'Action Required' | 'Complete' | 'Elective'
     completionInformation: ICompletionInformation;
 }
 
+export interface ICarrier {
+	carrier: string
+	assets: {
+		logo_url: string
+		carrierDisplayName: string
+		appointments:IAppointment[]
+	}
+	products: IProduct[]
+}
+
 export interface IProducerTraining {
-    ProducerNPN: string
-	Carrier: string
-    products: IProduct[]
+    producerNPN: string
+	producerCRD: string
+	producerAgentCode: string
+	producerFirstName: string
+	producerLastName: string
+	producerEmailAddress: string
+    stateLicenses: IStateLicense[]
+    registrations: IRegistration[]
+	carriers: ICarrier[]
 }
 
 export class ProducerTraining implements IProducerTraining {
-    ProducerNPN: string;
-    Carrier: string;
-    products: IProduct[];
+	producerNPN: string;
+	producerCRD: string;
+	producerAgentCode: string;
+	producerFirstName: string;
+	producerLastName: string;
+	producerEmailAddress: string;
+	stateLicenses: IStateLicense[];
+	registrations: IRegistration[];
+	carriers: ICarrier[];
 
     constructor(data: IProducerTraining) {
-        Object.assign(this, data);
+        this.producerNPN = data.producerNPN
+		this.producerCRD = data.producerCRD
+		this.producerAgentCode = data.producerAgentCode
+		this.producerFirstName = data.producerFirstName
+		this.producerLastName = data.producerLastName
+		this.producerEmailAddress = data.producerEmailAddress
+		this.stateLicenses = data.stateLicenses
+		this.registrations = data.registrations
+		this.carriers = data.carriers
     }
 
 }
@@ -124,10 +175,7 @@ export interface IProduct {
     jurisdiction: string[] // StateType?
     carrierAuthorization: boolean,
     distributorAuthorization: boolean,
-    courses: ICourse[],
-    appointments:IAppointment[],
-    stateLicenses: IStateLicense[]
-    registrations: IRegistration[]
+    courses: ICourse[]
 }
 
 export class Product implements IProduct {

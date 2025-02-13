@@ -1,29 +1,38 @@
 <script setup lang="ts">
 import NavLayout from '@/layouts/NavLayout.vue';
-import TrainingActionCard from '@/components/TrainingActionCard.vue'
 import ProductTable from '@/components/ProductTable.vue';
-import { useTraining } from '@/composables/useTraining';
-import { getProductTrainingCompletionPercentage } from '@/core/model';
 import UpcomingTraining from '@/components/UpcomingTraining.vue';
 import RequiredTraining from '@/components/RequiredTraining.vue';
+import LatestTraining from '@/components/LatestTraining.vue';
+import { useUserStore } from '@/stores/user.store';
+import CertiBot from '@/components/CertiBot.vue'
+import CertiBotResponses from '@/components/CertiBotResponses.vue'
+import { useOverlay } from '@/composables/useOverlay';
 
-const { getProductTraining, producerTraining } = useTraining()
+const user = useUserStore()
+const overlay = useOverlay()
 
-await getProductTraining('123123123')
-console.log(producerTraining.value)
-const anyProductsRequireTraining = producerTraining.value?.products?.some(p => getProductTrainingCompletionPercentage(p) != 1)
+await user.fetchTrainingData()
+
+if (user.role == 'delegate')
+	overlay.openAdviserSelectOverlay()
+
 </script>
 <template>
 <NavLayout>
     <div>
-		<RequiredTraining 
-			v-if="anyProductsRequireTraining"
-			:producerTraining="producerTraining"
-		/>
-		
-		<UpcomingTraining />
-
-        <ProductTable :producerTraining="producerTraining" />
+		<Transition name="fade" mode="out-in">
+			<div v-if="user.selectedAdviser">
+				<RequiredTraining />
+				<UpcomingTraining />
+				<div id="chat">
+					<CertiBotResponses />
+					<CertiBot />
+				</div>
+				<ProductTable />
+				<LatestTraining />
+			</div>
+		</Transition>
     </div>
 </NavLayout>
 

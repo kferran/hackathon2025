@@ -1,7 +1,12 @@
 <script setup lang="ts">
+import { computed } from 'vue';
+
 const props = defineProps<{
 	image?: string
+	wideImage?: boolean
 }>()
+
+const wide = computed(() => props.wideImage ? 'height: 192px; overflow: hidden; object-fit: cover' : '')
 </script>
 
 <template>
@@ -14,7 +19,8 @@ const props = defineProps<{
 	>
         <img 
 			:src="image"
-			class="rounded-t-lg w-full aspect-1/1" 
+			:class="`rounded-t-lg w-full aspect-1/1`"
+			:style="wide"
 			alt=""
 		/>
     </a>
