@@ -184,22 +184,6 @@ export const useUserStore = defineStore('user', () => {
 			?.flatMap(x => x.products)
 			?? []
 		)),
-		allUniqueProducts: computed(() => {
-			const names = new Set()
-
-			const allProducts = []
-
-			const productsToCheck = trainingData.value?.carriers?.flatMap(x => x.products) ?? []
-
-			for (const p of productsToCheck) {
-				if (!names.has(p.name)) {
-					allProducts.push(p)
-					names.add(p.name)
-				}
-			}
-
-			return allProducts
-		}),
 		allProductsWithCarrier: (computed(
 			() => trainingData.value?.carriers
 			?.flatMap(carrier => carrier?.products?.map(product => ({

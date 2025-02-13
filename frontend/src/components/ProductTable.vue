@@ -133,9 +133,12 @@ onMounted(() => {
                         </a>
                     </li>
                     <li>
-                        <button type="button"
+                        <button 
+                            type="button"
                             class="cursor-pointer flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                            aria-controls="dropdown-tasks" data-collapse-toggle="dropdown-tasks">
+                            aria-controls="dropdown-tasks" 
+                            data-collapse-toggle="dropdown-tasks"
+                        >
                             <svg aria-hidden="true"
                                 class="flex-shrink-0 w-6 h-6 text-gray-400 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
                                 fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -152,14 +155,14 @@ onMounted(() => {
                                     clip-rule="evenodd"></path>
                             </svg>
                         </button>
-                        <ul id="dropdown-tasks" class="hidden py-2 space-y-2">
+                        <ul id="dropdown-tasks" class="hidden space-y-2">
                             <li v-for="carrier in user.allCarriers">
                                 <button
                                     type="button"
                                     @click="handleFilterCarrier(carrier)" 
                                     class="cursor-pointer flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                                 >
-                                    {{carrier.carrier}}
+                                    {{carrier.assets.carrierDisplayName}}
                                 </button>
                             </li>
                         </ul>
@@ -216,11 +219,11 @@ onMounted(() => {
                             <thead
                                 class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
-                                    <th scope="col" class="px-4 py-3">Product name</th>
-                                    <th scope="col" class="px-4 py-3">Carrier</th>
-                                    <th scope="col" class="px-4 py-3">Product Type</th>
-                                    <th scope="col" class="px-4 py-3">Description</th>
-                                    <th scope="col" class="px-4 py-3">Status</th>
+                                    <th scope="col" class="px-2 py-2">Product name</th>
+                                    <th scope="col" class="px-2 py-2">Carrier</th>
+                                    <th scope="col" class="px-2 py-2">Product Type</th>
+                                    <th scope="col" class="px-2 py-2">Description</th>
+                                    <th scope="col" class="px-2 py-2">Status</th>
                                     <!-- <th scope="col" class="px-4 py-3">
                                         <span class="sr-only">Actions</span>
                                     </th> -->
@@ -229,16 +232,45 @@ onMounted(() => {
                             <tbody>
                                 <tr class="border-b border-gray-200 dark:border-gray-700"
                                     v-for="(item, index) in filteredProductsWithCarrier" :key="index">
-                                    <th scope="row"
-                                        class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ item.product.name }}</th>
-                                    <td class="px-4 py-3">{{ item.carrier.carrier }}</td>
-                                    <td class="px-4 py-3">{{ item.product.type }}</td>
-                                    <td class="px-4 py-3">
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.</td>
-                                    <td class="px-4 py-3"><span
-                                            class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-purple-900 dark:text-purple-300">in
-                                            progress</span>
+                                    <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        {{ item.product.name }}
+                                    </th>
+                                    <td class="px-2 py-2">{{ item.carrier.assets.carrierDisplayName }}</td>
+                                    <td class="px-2 py-2">{{ item.product.type }}</td>
+                                    <td class="px-2 py-2">
+                                        Lorem Ipsum is..
+                                    </td>
+                                    <td class="px-2 py-2">
+                                        <span 
+                                            v-if="item.product.courses.every(x => x.status === 'Pending')"
+                                            class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-yellow-900 dark:text-yellow-300"
+                                        >
+                                            Pending
+                                        </span>
+                                        <span 
+                                            v-if="item.product.courses.every(x => x.status === 'In Progress')"
+                                            class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-purple-900 dark:text-purple-300"
+                                        >
+                                            In Progress
+                                        </span>
+                                        <span 
+                                            v-if="item.product.courses.every(x => x.status === 'Action Required')"
+                                            class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-red-900 dark:text-red-300"
+                                        >
+                                            Action Required
+                                        </span>
+                                        <span 
+                                            v-if="item.product.courses.every(x => x.status === 'Completed')"
+                                            class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-green-900 dark:text-green-300"
+                                        >
+                                            Completed
+                                        </span>
+                                        <span 
+                                            v-if="item.product.courses.every(x => x.status === 'Not Started')"
+                                            class="bg-pink-100 text-pink-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-pink-900 dark:text-pink-300"
+                                        >
+                                            Not Started
+                                        </span>
                                     </td>
                                     <!-- <td class="px-4 py-3 flex items-center justify-end">
                                         <button id="apple-imac-27-dropdown-button"

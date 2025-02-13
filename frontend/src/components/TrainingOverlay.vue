@@ -11,6 +11,8 @@ function handleClose() {
 }
 
 async function handleCompleteTraining() {
+
+	
 	handleClose()
 }
 </script>
