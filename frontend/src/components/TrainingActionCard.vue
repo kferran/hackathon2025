@@ -5,7 +5,7 @@ import ProgressBar from '@/components/ProgressBar.vue';
 import Icon from '@/components/Icon.vue';
 import nwLogoUrl from '@/assets/nationwide-logo.png'
 import atheneLogo from '@/assets/athene-logo.png'
-import { getEstimatedTrainingTimeInMinutes, getProductTrainingCompletionPercentage, type ICourse, type IProducerTraining, type IProduct } from '@/core/model';
+import { getEstimatedTrainingTimeInMinutes, getProductTrainingCompletionPercentage, type ICarrier, type ICourse, type IProducerTraining, type IProduct } from '@/core/model';
 import { computed } from 'vue';
 import { useOverlay } from '@/composables/useOverlay';
 import TrainingOverlay from '@/components/TrainingOverlay.vue';
@@ -15,7 +15,9 @@ const overlay = useOverlay()
 const training = useTraining()
 
 const props = defineProps<{
-	course: ICourse
+	course: ICourse,
+	carrier: ICarrier,
+	product: IProduct
 }>()
 
 const completionPercentage = computed(() =>50)
@@ -25,7 +27,12 @@ const minutes = computed(() => 5)
 
 function handleOpenTraining() {
 	overlay.openOverlay(
-		TrainingOverlay
+		TrainingOverlay,
+		{
+			carrierId: props.carrier.carrier,
+			cusip: props.product.CUSIP,
+			courseId: props.course.courseId
+		}
 	)
 }
 

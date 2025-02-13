@@ -6,12 +6,12 @@ import { chunk } from '@/core/utils';
 
 const user = useUserStore()
 
-const chunkedTrainings = computed(() => user.incompleteRequiredTrainings.slice(0, 3))
+const chunkedTrainings = computed(() => user.incompleteRequiredTrainings?.slice(0, 3))
 </script>
 
 <template>
 <div
-	v-if="user.incompleteRequiredTrainings.length"
+	v-if="user.incompleteRequiredTrainings?.length"
 	class="w-full p-20 bg-[#111928] flex-col justify-start items-center inline-flex"
 >
 	<div class="text-center text-white text-4xl font-extrabold leading-[45px]">Training Action Required</div>
@@ -24,8 +24,10 @@ const chunkedTrainings = computed(() => user.incompleteRequiredTrainings.slice(0
 		class="inline-flex items-center gap-4 justify-center mt-5"
 	>
 		<TrainingActionCard
-			v-for="course in chunkedTrainings"
-			:course="course"
+			v-for="data in chunkedTrainings"
+			:course="data.course"
+			:carrier="data.carrier"
+			:product="data.product"
 			class="w-1/3"
 		/>
 	</div>

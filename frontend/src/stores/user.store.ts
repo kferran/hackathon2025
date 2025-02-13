@@ -195,11 +195,12 @@ export const useUserStore = defineStore('user', () => {
 			?? []
 		)),
 		incompleteRequiredTrainings: computed(
-			() => trainingData.value?.carriers
-				?.flatMap(x => x?.products)
-				?.flatMap(x => x?.courses)
-				?.filter(course => course?.status != 'Elective' && course?.status != 'Completed')
-				?? []
+		() => trainingData.value?.carriers?.flatMap(carrier => carrier?.products
+			?.flatMap(product => product.courses.map(course => ({
+				carrier,
+				course,
+				product
+			})))).filter(data => data.course?.status != 'Elective' && data.course?.status != 'Completed')
 		),
 		incompleteNonRequiredTrainings: computed(
 			() => trainingData.value?.carriers
