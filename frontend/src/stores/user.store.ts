@@ -89,8 +89,6 @@ export const useUserStore = defineStore('user', () => {
 			?.filter(x => x.relationshipType == 'adviser-delegate' && x.parentGuid == user.value?.guid)
 			?.map(x => x.childGuid)
 
-		console.log(relations)
-
 		relatedDelegates.value = storage.allUsers?.filter(x => relations?.includes(x.guid ?? '')) ?? []
 	}
 
