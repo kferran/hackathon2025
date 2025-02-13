@@ -5,10 +5,8 @@ import { computed } from 'vue';
 const props = defineProps<{
 	user?: IUser
 	product?: IProduct
-	checkCompleteness: (product : IProduct | undefined) => boolean
+	isComplete:  boolean
 }>()
-
-const isComplete = computed(() => props.checkCompleteness(props.product))
 </script>
 
 <template>

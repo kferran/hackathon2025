@@ -216,7 +216,7 @@ export const useUserStore = defineStore('user', () => {
 				carrier,
 				course,
 				product
-			})))).filter(data => data.course?.status != 'Elective' && data.course?.status != 'Completed')
+			})))).filter(data => data.course?.status != 'Elective' && data.course?.status != 'Complete')
 		),
 		incompleteNonRequiredTrainings: computed(
 			() => trainingData.value?.carriers
