@@ -285,18 +285,18 @@ export function useTraining() {
 
     const getProductTraining = async (npn: string): Promise<IProducerTraining> => {
         try {
-            // const response = await axios({
-            //     method: 'get',
-            //     withCredentials: false,
-            //     url: `https://dc1pp0md2g.execute-api.us-west-2.amazonaws.com/v1/producer/details?npn=${npn}`
-            // });
+            const response = await axios({
+                method: 'get',
+                withCredentials: false,
+                url: `https://dc1pp0md2g.execute-api.us-west-2.amazonaws.com/v1/producer/details?npn=${npn}`
+            });
 
-            // producerTraining.value = response.data as IProducerTraining
+            producerTraining.value = response.data as IProducerTraining
 
-            // if (!producerTraining.value.producerNPN) {
-            console.warn('falling back to mock data')
-            producerTraining.value = new ProducerTraining(JSON.parse(mockJSON)) as IProducerTraining
-            // }
+            if (!producerTraining.value.producerNPN) {
+				console.warn('falling back to mock data')
+				producerTraining.value = new ProducerTraining(JSON.parse(mockJSON)) as IProducerTraining
+            }
 
             return producerTraining.value
         } catch (error) {

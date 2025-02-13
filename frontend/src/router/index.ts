@@ -101,6 +101,7 @@ const router = createRouter({
 				{
 					path: 'carrier',
 					name: 'status.carrier',
+					alias: 'all',
 					component: () => import('@/views/status/CarrierStatus.vue')
 				},
 				{
