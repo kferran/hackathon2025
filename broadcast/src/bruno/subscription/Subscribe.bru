@@ -1,0 +1,25 @@
+meta {
+  name: Subscribe
+  type: http
+  seq: 2
+}
+
+post {
+  url: https://2wa27e5crg.execute-api.us-west-2.amazonaws.com/v1/subscribe
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "distributor": "The eApp Provider",
+    "distributorId": "tep",
+    "subscriptions": [
+      {
+        "producerNPN": "17886789",
+        "verb": "Subscribe",
+        "callbackUrl": "https://2wa27e5crg.execute-api.us-west-2.amazonaws.com/v1/receive-publish/receive/tep/The eApp Provider/17886789"
+      }
+    ]
+  }
+}

@@ -4,11 +4,13 @@
 	"subscriptions": [
 		{
 			"producerNPN": "5556667778",
-			"verb": "Subscribe"
+			"verb": "Subscribe",
+			"callbackUrl" : "someURL"
 		},
 		{
 			"producerNPN": "475869129",
-			"verb": "Unsubscribe"
+			"verb": "Unsubscribe",
+			"callbackUrl" : "someURL"
 		}
 	]
 }

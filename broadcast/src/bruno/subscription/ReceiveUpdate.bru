@@ -1,0 +1,15 @@
+meta {
+  name: ReceiveUpdate
+  type: http
+  seq: 3
+}
+
+post {
+  url: https://2wa27e5crg.execute-api.us-west-2.amazonaws.com/v1/receive-publish/receive
+  body: json
+  auth: none
+}
+
+body:json {
+  { }
+}
