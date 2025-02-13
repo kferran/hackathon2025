@@ -294,8 +294,8 @@ export function useTraining() {
             producerTraining.value = response.data as IProducerTraining
 
             if (!producerTraining.value.producerNPN) {
-                console.warn('falling back to mock data')
-                producerTraining.value = new ProducerTraining(JSON.parse(mockJSON)) as IProducerTraining
+				console.warn('falling back to mock data')
+				producerTraining.value = new ProducerTraining(JSON.parse(mockJSON)) as IProducerTraining
             }
 
             return producerTraining.value

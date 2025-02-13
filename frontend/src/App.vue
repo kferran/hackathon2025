@@ -5,6 +5,7 @@ import { RouterLink, RouterView } from 'vue-router'
 import 'flowbite';
 import { onMounted } from 'vue'
 import { initFlowbite } from 'flowbite'
+import Toasts from '@/views/Toasts.vue';
 
 const overlay = useOverlay()
 onMounted(() => {
@@ -14,6 +15,7 @@ onMounted(() => {
 </script>
 
 <template>
+	<Toasts />
 	<Transition name="fade" mode="out-in">
 		<div
 			v-if="overlay.component.value"
