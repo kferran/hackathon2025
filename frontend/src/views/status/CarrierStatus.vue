@@ -82,7 +82,7 @@ poller.startPoller(1000, async () => {
 
 	console.log(completeUpdates)
 
-	const completeCarrierUpdate = completeUpdates.some(x => x.distributorId == 'carrier')
+	const completeCarrierUpdate = completeUpdates.some(x => x.distributorId == 'tc')
 	const completeClearingHouseUpdate = completeUpdates.some(x => x.distributorId == 'ch')
 	const completeTrainingProviderUpdate = completeUpdates.some(x => x.distributorId == 'tv')
 	const completeDpUpdate = completeUpdates.some(x => x.distributorId == 'dp')
